@@ -54,6 +54,21 @@ app.get("/api/courses/:courseId", async (req, res) => {
   }
 });
 
+async function updateRatingCount() {
+  // Get current ratings count
+  const ratingResult = await pool.query(
+    "SELECT AVG(rating_count) FROM courses;"
+  );
+  const ratingCount = parseInt(ratingResult.rows[0].avg);
+  // Update the courses table with the new rating count
+  const updateResult = await pool.query(
+    "UPDATE courses SET rating_count = $1",
+    [ratingCount + 1]
+  );
+
+  return updateResult;
+}
+
 async function updateAverageRating(courseId) {
   // Calculate the average rating
   const averageResult = await pool.query(
@@ -81,8 +96,9 @@ app.post("/api/courses/:courseId", async (req, res) => {
     const queryValues = [courseId, review, overall, post_date];
     await pool.query(queryText, queryValues);
 
-    // Update average rating
+    // Update course table
     await updateAverageRating(courseId);
+    await updateRatingCount();
 
     res.sendStatus(200);
   } catch (err) {

@@ -18,6 +18,8 @@ function SchoolCourses() {
     });
   }, []);
 
+  console.log(courses);
+
   return (
     <div>
       <h1>{schoolName}</h1>
@@ -28,10 +30,11 @@ function SchoolCourses() {
             to={`/${schoolName}/${course.code}`}
             state={{ courseId: course.id, courseName: course.name }}
           >
-            <div>
+            <div className="courseBox">
               <h2>{course.name}</h2>
               <p>Code: {course.code}</p>
               <p>Overall Rating: {course.overall}</p>
+              <p>Ratings: {course.rating_count}</p>
             </div>
           </Link>
         ))

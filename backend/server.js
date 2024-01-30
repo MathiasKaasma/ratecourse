@@ -54,16 +54,18 @@ app.get("/api/courses/:courseId", async (req, res) => {
   }
 });
 
-async function updateRatingCount() {
+async function updateRatingCount(courseId) {
   // Get current ratings count
   const ratingResult = await pool.query(
-    "SELECT AVG(rating_count) FROM courses;"
+    "SELECT rating_count FROM courses WHERE id= $1",
+    [courseId]
   );
-  const ratingCount = parseInt(ratingResult.rows[0].avg);
+  const ratingCount = parseInt(ratingResult.rows[0].rating_count);
+  //console.log(ratingCount);
   // Update the courses table with the new rating count
   const updateResult = await pool.query(
-    "UPDATE courses SET rating_count = $1",
-    [ratingCount + 1]
+    "UPDATE courses SET rating_count = $1 WHERE id= $2",
+    [ratingCount + 1, courseId]
   );
 
   return updateResult;
@@ -72,7 +74,7 @@ async function updateRatingCount() {
 async function updateAverageRating(courseId) {
   // Calculate the average rating
   const averageResult = await pool.query(
-    "SELECT AVG(overall) FROM ratings WHERE courseId= $1",
+    "SELECT AVG(overall_rating) FROM ratings WHERE courseId= $1",
     [courseId]
   );
   const averageRating = averageResult.rows[0].avg;
@@ -87,18 +89,42 @@ async function updateAverageRating(courseId) {
 
 app.post("/api/courses/:courseId", async (req, res) => {
   const { courseId } = req.params;
-  const { review, overall, post_date } = req.body;
+  const { professor_name, year_taken, semester_taken, ...otherFields } =
+    req.body;
+  const queryValues = [
+    courseId,
+    professor_name,
+    year_taken,
+    semester_taken,
+    ...Object.values(otherFields),
+  ];
 
+  const queryText = `
+    INSERT INTO ratings (
+      courseId,
+      professor_name,
+      year_taken,
+      semester_taken,
+      post_date,
+      overall_rating,
+      difficulty_rating,
+      interesting_rating,
+      usefulness_rating,
+      structure_rating,
+      materials_rating,
+      professor_rating,
+      overall_review,
+      content_review,
+      professor_review,
+      suggestions_review
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+  `;
   try {
-    // Add new review to table
-    const queryText =
-      "INSERT INTO ratings(courseId, review, overall, post_date) VALUES ($1, $2, $3, $4)";
-    const queryValues = [courseId, review, overall, post_date];
     await pool.query(queryText, queryValues);
 
     // Update course table
     await updateAverageRating(courseId);
-    await updateRatingCount();
+    await updateRatingCount(courseId);
 
     res.sendStatus(200);
   } catch (err) {

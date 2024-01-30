@@ -31,10 +31,9 @@ function CourseRatings() {
         {ratings.length > 0 ? (
           ratings.map((rating) => (
             <div key={rating.id}>
-              <h2>{rating.name}</h2>
               <p>Posted at: {rating.post_date.substring(0, 10)}</p>
-              <p>Overall Rating: {rating.overall}</p>
-              <p>Review: {rating.review}</p>
+              <p>Overall Rating: {rating.overall_rating}</p>
+              <p>Review: {rating.overall_review}</p>
               <br />
             </div>
           ))

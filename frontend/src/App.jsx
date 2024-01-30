@@ -12,7 +12,6 @@ export default function App() {
 
   useEffect(() => {
     getSchoolData().then((data) => {
-      console.log(data);
       setSchools(data);
     });
   }, []);
@@ -26,7 +25,7 @@ export default function App() {
           //state="a"
           state={{ schoolId: school.id }}
         >
-          <div>{school.name}</div>
+          <h1>{school.name}</h1>
         </Link>
       ))}
     </div>

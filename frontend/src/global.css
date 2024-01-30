@@ -1,0 +1,26 @@
+:root {
+  --text: black;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+
+a:link {
+  text-decoration: none;
+  color: var(--text);
+}
+a:visited {
+  text-decoration: none;
+  color: var(--text);
+}
+a:hover {
+  text-decoration: none;
+  color: var(--text);
+}
+a:active {
+  text-decoration: none;
+  color: var(--text);
+}

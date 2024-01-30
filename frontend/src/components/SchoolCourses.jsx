@@ -10,18 +10,7 @@ function SchoolCourses() {
   const [courses, setCourses] = useState({});
   const { schoolName } = useParams();
   const location = useLocation();
-  let schoolId;
-  //console.log(location);
-  //const { schoolId } = location.state || {};
-  //console.log(schoolId);
-
-  if (typeof location.state === "string") {
-    // If the state is a string, use it as-is
-    schoolId = location.state;
-  } else if (typeof location.state === "object") {
-    // If the state is an object, check for the schoolId property
-    schoolId = location.state.schoolId;
-  }
+  const schoolId = location.state.schoolId || 1;
 
   useEffect(() => {
     fetchCourses(schoolId).then((data) => {
@@ -37,7 +26,7 @@ function SchoolCourses() {
           <Link
             key={course.id}
             to={`/${schoolName}/${course.code}`}
-            state={{ courseId: course.id }}
+            state={{ courseId: course.id, courseName: course.name }}
           >
             <div>
               <h2>{course.name}</h2>

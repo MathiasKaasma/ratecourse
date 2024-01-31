@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import LeaveReviewForm from "./LeaveReviewForm";
+import RatingDescription from "./RatingDescription";
 
 async function fetchRatings(courseId) {
   const response = await fetch(`http://localhost:5000/api/courses/${courseId}`);
@@ -33,7 +34,20 @@ function CourseRatings() {
           ratings.map((rating) => (
             <div key={rating.id}>
               <p>Posted at: {rating.post_date.substring(0, 10)}</p>
-              <p>Overall Rating: {rating.overall_rating}</p>
+              <p>
+                Üldine hinnang: {rating.overall_rating}
+                <RatingDescription
+                  ratingValue={rating.overall_rating}
+                  ratingType={"overall_rating"}
+                />
+              </p>
+              <p>
+                Õppejõu hinnang: {rating.professor_rating}
+                <RatingDescription
+                  ratingValue={rating.professor_rating}
+                  ratingType={"professor_rating"}
+                />
+              </p>
               <p>Üldised kommentaarid: {rating.overall_review}</p>
 
               {rating.content_review && (

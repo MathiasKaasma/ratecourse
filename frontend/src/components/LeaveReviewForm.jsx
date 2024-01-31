@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import StarRating from "./StarRating";
 import TextRating from "./TextRating";
+import RatingDescription from "./RatingDescription";
 
 function getDate() {
   // Get current date

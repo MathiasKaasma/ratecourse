@@ -7,7 +7,7 @@ async function getSchoolData() {
   return await res.json();
 }
 
-export default function App() {
+function Homepage() {
   const [schools, setSchools] = useState([]);
 
   useEffect(() => {
@@ -31,3 +31,5 @@ export default function App() {
     </div>
   );
 }
+
+export default Homepage;

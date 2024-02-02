@@ -1,3 +1,4 @@
+import "./index.css";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -7,7 +8,7 @@ import CourseRatings from "./components/CourseRatings.jsx";
 import LeaveReviewPage from "./components/LeaveReviewPage.jsx";
 import Header from "./components/Header.jsx";
 import ReviewConfirmation from "./components/ReviewConfirmation.jsx";
-import "./global.css";
+//import "./global.css";
 import AboutPage from "./components/AboutPage.jsx";
 import TermsPage from "./components/TermsPage.jsx";
 

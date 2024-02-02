@@ -1,7 +1,10 @@
 function TermsPage() {
   return (
     <div>
-      <h1>Juhised Kasutajatele</h1>
+      <button class="btn btn-primary">Button</button>
+      <h1 className="text-4xl underline italic text-red-400">
+        Juhised Kasutajatele
+      </h1>
       <ol>
         <li>
           <strong>Ausus ja Objektiivsus</strong>: Jäta hinnangud, mis põhinevad

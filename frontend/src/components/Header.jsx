@@ -17,7 +17,9 @@ function Header() {
           <Link to="/meist">Meist</Link>
           <Link to="/tingimused">Tingimused</Link>
         </div>
-        <button className="contact-button">Võta ühendust</button>
+        <button className="contact-button">
+          <Link to="/kontakt">Võta ühendust</Link>
+        </button>
       </div>
     </header>
   );

@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import LeaveReviewForm from "../components/LeaveReviewForm";
 
-export default function LeaveReviewPage() {
+function LeaveReview() {
   const location = useLocation();
 
   console.log(location);
@@ -12,3 +11,5 @@ export default function LeaveReviewPage() {
     </div>
   );
 }
+
+export default LeaveReview;

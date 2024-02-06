@@ -1,3 +1,4 @@
+/* Default styling */
 :root {
   --primary-color: #1d87e8;
   --secondary-color: #f2f2f2;
@@ -16,7 +17,18 @@
   font-weight: 400;
 }
 
-/* Header  */
+/* Default background blur effect */
+body {
+  background: rgb(242, 242, 242);
+  background: linear-gradient(
+    215deg,
+    rgba(47, 130, 255, 0.3) 0%,
+    rgba(242, 242, 242, 0.3) 100%
+  );
+  background-size: 200% 200%;
+}
+
+/* Header */
 header {
   display: flex;
   justify-content: space-between;
@@ -33,13 +45,13 @@ header {
 .header-logo img {
   max-width: 50px;
   display: block;
-  margin-right: 1rem;
+  margin-right: 0.7rem;
 }
 
 .header-title {
-  font-size: 1.8rem;
-  font-family: "Poppins", sans-serif;
+  font-size: 1.75rem;
   font-weight: 600;
+  font-family: "Poppins", sans-serif;
 }
 
 .header-right {
@@ -56,7 +68,6 @@ header {
 
 .contact-button {
   background-color: var(--primary-color);
-  color: white;
   border: none;
   padding: 0.5rem 0.8rem;
   cursor: pointer;
@@ -64,10 +75,22 @@ header {
   font-size: 1.3rem;
 }
 
+.contact-button a {
+  background-color: var(--primary-color);
+  color: white;
+}
+
 /* Homepage */
 .main-content {
   text-align: center;
-  padding: 8rem 2rem 3rem 2rem;
+  padding: 13rem 2rem 5rem 2rem;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .main-header {
@@ -86,6 +109,8 @@ header {
   font-size: 6rem;
   font-family: "Poppins", sans-serif;
   font-weight: 900;
+  /* box-shadow: 0 0 3000px var(--primary-color); */
+  z-index: 1;
 }
 
 .subtitle {
@@ -95,22 +120,36 @@ header {
   font-size: 2.6rem;
   font-style: italic;
   font-weight: 200;
-  margin-bottom: 6rem;
+  margin-bottom: 8rem;
+}
+
+.small-title {
+  margin-bottom: 1rem;
+  font-size: 1.8rem;
+  font-weight: 500;
 }
 
 .school-cards {
+  overflow: visible;
   display: flex;
   justify-content: center;
   align-items: center;
+  margin-bottom: 3rem;
 }
 
 .school-cards a {
+  box-shadow: 0px 3px 4px #b4b4b4;
   margin: 0 1.7rem;
+  min-width: 250px;
+  border-radius: 15px;
+  background-color: #ffffff;
 }
 
 .school-cards img {
-  height: 125px;
+  height: 150px;
   max-width: 400px;
+  background-color: #ffffff;
+  padding: 15px 15px;
 }
 
 /*  */

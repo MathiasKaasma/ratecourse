@@ -1,19 +1,25 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+import logo from "../assets/Logo.png";
 
 function Header() {
   return (
-    <div>
+    <header>
       <Link to="/">
-        <h3>Avalehele</h3>
+        <div className="header-left">
+          <div className="header-logo">
+            <img src={logo} alt="Logo" />
+          </div>
+          <div className="header-title">Hinda Kursust</div>
+        </div>
       </Link>
-      <Link to="/meist">
-        <h3>Meist</h3>
-      </Link>
-      <Link to="/tingimused">
-        <h3>Tingimused</h3>
-      </Link>
-    </div>
+      <div className="header-right">
+        <div className="header-links">
+          <Link to="/meist">Meist</Link>
+          <Link to="/tingimused">Tingimused</Link>
+        </div>
+        <button className="contact-button">Võta ühendust</button>
+      </div>
+    </header>
   );
 }
 

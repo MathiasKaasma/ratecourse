@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import LeaveReviewForm from "./LeaveReviewForm";
-import RatingDescription from "./RatingDescription";
+import LeaveReviewForm from "../components/LeaveReviewForm";
+import RatingDescription from "../components/RatingDescription";
 
 async function fetchRatings(courseId) {
   const response = await fetch(`http://localhost:5000/api/courses/${courseId}`);

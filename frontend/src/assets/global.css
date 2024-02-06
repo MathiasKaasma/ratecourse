@@ -1,0 +1,133 @@
+:root {
+  --primary-color: #1d87e8;
+  --secondary-color: #f2f2f2;
+  /* --accent-color: #; */
+  --text-color: #000000;
+  --font-family: "Montserrat", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: var(--font-family);
+  overflow-x: hidden;
+  color: var(--text-color);
+  font-weight: 400;
+}
+
+/* Header  */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  padding: 1rem 3rem 1rem 1rem;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo img {
+  max-width: 50px;
+  display: block;
+  margin-right: 1rem;
+}
+
+.header-title {
+  font-size: 1.8rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.header-links a {
+  text-decoration: none;
+  margin-right: 3rem;
+  font-size: 1.4rem;
+}
+
+.contact-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  border-radius: 15px;
+  font-size: 1.3rem;
+}
+
+/* Homepage */
+.main-content {
+  text-align: center;
+  padding: 8rem 2rem 3rem 2rem;
+}
+
+.main-header {
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  align-content: space-around;
+}
+
+.title {
+  overflow: visible;
+  line-height: 0.9;
+  margin-bottom: 0;
+  font-size: 6rem;
+  font-family: "Poppins", sans-serif;
+  font-weight: 900;
+}
+
+.subtitle {
+  overflow: visible;
+  line-height: 1.1;
+  margin-top: 0;
+  font-size: 2.6rem;
+  font-style: italic;
+  font-weight: 200;
+  margin-bottom: 6rem;
+}
+
+.school-cards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.school-cards a {
+  margin: 0 1.7rem;
+}
+
+.school-cards img {
+  height: 125px;
+  max-width: 400px;
+}
+
+/*  */
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 60%;
+}
+
+.courseBox {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 40%;
+  justify-content: space-between;
+}
+
+a {
+  text-decoration: none;
+}

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
-import SchoolCourseTable from "./SchoolCourseTable";
+import SchoolCourseTable from "../components/SchoolCourseTable";
 
 async function fetchCourses(schoolId) {
   const response = await fetch(`http://localhost:5000/api/schools/${schoolId}`);

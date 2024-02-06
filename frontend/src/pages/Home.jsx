@@ -2,23 +2,26 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-async function getSchoolData() {
-  const res = await fetch(`http://localhost:5000/api/schools`);
-  return await res.json();
-}
-
 function Home() {
   const [schools, setSchools] = useState([]);
 
-  useEffect(() => {
-    getSchoolData().then((data) => {
-      console.log(data);
+  async function fetchSchools() {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/schools`);
+      if (!response.ok) throw new Error("Data could not be fetched");
+      const data = await response.json();
       setSchools(data);
-    });
+    } catch (error) {
+      console.error("Fetching error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchSchools();
   }, []);
 
   return (
-    <div className="main-content">
+    <main className="main-content">
       <div className="main-header">
         <h1 className="title">Hinda Kursust</h1>
         <p className="subtitle">
@@ -27,7 +30,7 @@ function Home() {
         </p>
       </div>
       <div className="school-choice">
-        <h2 className="small-title">Vali kool</h2>
+        <h2 className="small-title">.</h2>
         <div className="school-cards">
           {schools.map((school) => (
             <Link
@@ -43,7 +46,7 @@ function Home() {
           ))}
         </div>
       </div>
-    </div>
+    </main>
   );
 }
 

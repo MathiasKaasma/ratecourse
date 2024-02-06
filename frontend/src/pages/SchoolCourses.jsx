@@ -2,11 +2,6 @@ import { useState, useEffect } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 import SchoolCourseTable from "../components/SchoolCourseTable";
 
-async function fetchCourses(schoolId) {
-  const response = await fetch(`http://localhost:5000/api/schools/${schoolId}`);
-  return await response.json();
-}
-
 function SchoolCourses() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
@@ -17,11 +12,22 @@ function SchoolCourses() {
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
 
-  useEffect(() => {
-    fetchCourses(schoolId).then((data) => {
+  async function fetchCourses() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/schools/${schoolId}`
+      );
+      if (!response.ok) throw new Error("Data could not be fetched");
+      const data = await response.json();
       setAllCourses(data);
       setSearchedCourses(data);
-    });
+    } catch (error) {
+      console.error("Fetching error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchCourses();
   }, []);
 
   useEffect(() => {
@@ -34,35 +40,32 @@ function SchoolCourses() {
   }, [courseNameSearch, courseCodeSearch, allCourses]);
 
   return (
-    <div>
-      <h1>{schoolName} kursuste hinnangud</h1>
-      Otsi kursust
-      <form>
-        <label>
-          nime järgi:
+    <div className="courses-container">
+      <div className="search-container">
+        <div className="search-individual">
+          <label className="search-label">Nimi</label>
           <input
             type="text"
+            placeholder="Otsi ainet nime järgi"
             value={courseNameSearch}
             onChange={(e) => {
               setCourseNameSearch(e.target.value);
             }}
-          />{" "}
-          {/* (otsib kursuseid, mis sisaldavad sisestatud teksti) */}
-        </label>
-      </form>
-      <form>
-        <label>
-          koodi järgi:
+          />
+        </div>
+        <div className="search-individual">
+          <label className="search-label">Ainekood</label>
           <input
             type="text"
+            placeholder="Otsi ainekoodi aluse järgi"
             value={courseCodeSearch}
             onChange={(e) => {
               setCourseCodeSearch(e.target.value);
             }}
-          />{" "}
-          {/* (kontrollib, kas kursuse kood algab sisestatud tekstiga) */}
-        </label>
-      </form>
+          />
+        </div>
+      </div>
+      <div className="divider"></div>
       <SchoolCourseTable courses={searchedCourses} schoolName={schoolName} />
     </div>
   );

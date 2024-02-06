@@ -3,11 +3,6 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import LeaveReviewForm from "../components/LeaveReviewForm";
 import RatingDescription from "../components/RatingDescription";
 
-async function fetchRatings(courseId) {
-  const response = await fetch(`http://localhost:5000/api/courses/${courseId}`);
-  return await response.json();
-}
-
 function CourseRatings() {
   const [ratings, setRatings] = useState({});
   const { courseCode } = useParams();
@@ -15,11 +10,21 @@ function CourseRatings() {
   const courseId = location.state.courseId || 1;
   const courseName = location.state.courseName || "";
 
-  console.log(ratings);
-  useEffect(() => {
-    fetchRatings(courseId).then((data) => {
+  async function fetchRatings() {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/courses/${courseId}`
+      );
+      if (!response.ok) throw new Error("Data could not be fetched");
+      const data = await response.json();
       setRatings(data);
-    });
+    } catch (error) {
+      console.error("Fetching error: ", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchRatings();
   }, []);
 
   return (

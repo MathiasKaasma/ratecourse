@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import LeaveReviewForm from "../components/LeaveReviewForm";
-import RatingDescription from "../components/RatingDescription";
+import CourseRatingsTable from "../components/CourseRatingsTable";
 
 function CourseRatings() {
   const [ratings, setRatings] = useState({});
@@ -31,57 +31,24 @@ function CourseRatings() {
     <div className="ratings-container">
       <div className="ratings-header">
         <div className="course-details">
-          <h1>{courseName}</h1>
+          <div className="upper-details">
+            <h1>{courseName}</h1>
+            <div>
+              <button className="blue-button">
+                <a>Lisa hinnang</a>
+              </button>
+            </div>
+          </div>
+
           <h2>{courseCode}</h2>
-        </div>
-        <div>
-          <button className="blue-button">
-            <a>Lisa hinnang</a>
-          </button>
         </div>
       </div>
       {/* <Link to={`${location.pathname}/hinda`} state={{ courseId: courseId }}>
         Lisa hinnang
       </Link> */}
-      <div>
+      <div className="rating-cards">
         {ratings.length > 0 ? (
-          ratings.map((rating) => (
-            <div key={rating.id}>
-              <p>Posted at: {rating.post_date.substring(0, 10)}</p>
-              <p>
-                Üldine hinnang: {rating.overall_rating}
-                <RatingDescription
-                  ratingValue={rating.overall_rating}
-                  ratingType={"overall_rating"}
-                />
-              </p>
-              <p>
-                Õppejõu hinnang: {rating.professor_rating}
-                <RatingDescription
-                  ratingValue={rating.professor_rating}
-                  ratingType={"professor_rating"}
-                />
-              </p>
-              <p>Üldised kommentaarid: {rating.overall_review}</p>
-
-              {rating.content_review && (
-                <p>Kursuse sisu osas: {rating.content_review}</p>
-              )}
-
-              {rating.professor_review && (
-                <p>Õppejõu kohta: {rating.professor_review}</p>
-              )}
-
-              {rating.suggestions_review && (
-                <p>
-                  Soovitused kursuse võtijatele: {rating.suggestions_review}
-                </p>
-              )}
-
-              <p>Review: {rating.overall_review}</p>
-              <br />
-            </div>
-          ))
+          ratings.map((rating) => <CourseRatingsTable rating={rating} />)
         ) : (
           <p>Hinnangud puuduvad</p>
         )}

@@ -124,8 +124,8 @@ function LeaveReview({ courseId }) {
           })}
         >
           <option value="">Läbimise semester</option>
-          <option value="sügis">Sügis</option>
-          <option value="kevad">Kevad</option>
+          <option value="Sügis">Sügis</option>
+          <option value="Kevad">Kevad</option>
         </select>
       </div>
       {errors.semester_taken && <div>{errors.semester_taken.message}</div>}

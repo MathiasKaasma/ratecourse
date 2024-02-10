@@ -1,11 +1,13 @@
+import NumberRating from "./NumberRating";
+
 function RatingDescription({ ratingValue, ratingType }) {
   let usedValues;
   const overallValues = {
-    1: "Halb",
-    2: "Kesine",
-    3: "Normaalne",
-    4: "Hea",
-    5: "Suurepärane",
+    1: "Halb kursus",
+    2: "Kesine kursus",
+    3: "Normaalne kursus",
+    4: "Hea kursus",
+    5: "Suurepärane kursus",
   };
 
   const professorValues = {
@@ -16,22 +18,68 @@ function RatingDescription({ ratingValue, ratingType }) {
     5: "Suurepärane õppejõud",
   };
 
-  console.log(ratingType);
-  console.log(typeof ratingType);
+  const difficultyValues = {
+    1: "Väga raske",
+    2: "Raske",
+    3: "Mitte raske",
+    4: "Kerge",
+    5: "Väga kerge",
+  };
+
+  const interestingValues = {
+    1: "Väga igav",
+    2: "Igav",
+    3: "Veidi huvitav",
+    4: "Huvitav",
+    5: "Väga huvitav",
+  };
+
+  const usefulnessValues = {
+    1: "Kasutu",
+    2: "Vaevu kasulik",
+    3: "Veidi kasulik",
+    4: "Kasulik",
+    5: "Väga kasulik",
+  };
+
+  const structureValues = {
+    1: "Traagiline ülesehitus",
+    2: "Halb ülesehitus",
+    3: "Okei ülesehitus",
+    4: "Hea ülesehitus",
+    5: "Suurepärane ülesehitus",
+  };
 
   switch (ratingType) {
     case "overall_rating":
       usedValues = overallValues;
       break;
+    case "difficulty_rating":
+      usedValues = difficultyValues;
+      break;
+    case "interesting_rating":
+      usedValues = interestingValues;
+      break;
+    case "usefulness_rating":
+      usedValues = usefulnessValues;
+      break;
+    case "structure_rating":
+      usedValues = structureValues;
+      break;
     case "professor_rating":
       usedValues = professorValues;
       break;
     default:
-      usedValues = overallValues; // TODO - add objects for all rating types
+      usedValues = overallValues;
       console.log("Wrong rating type in ratingdescription.");
   }
 
-  return usedValues[ratingValue];
+  return (
+    <div className="number-rating">
+      <NumberRating number={ratingValue}></NumberRating>
+      <p>{usedValues[ratingValue]}</p>
+    </div>
+  );
 }
 
 export default RatingDescription;

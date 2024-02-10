@@ -14,8 +14,8 @@ function TextRating({
           {...register(name, {
             ...validation,
             maxLength: {
-              value: 15,
-              message: "Hinnang ei saa olla pikem kui 15 tähemärki",
+              value: 255,
+              message: "Hinnang ei saa olla pikem kui 255 tähemärki",
             },
           })}
           type="text"

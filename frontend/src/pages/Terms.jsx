@@ -1,6 +1,6 @@
 function Terms() {
   return (
-    <div>
+    <div className="more-info">
       <h1>Juhised Kasutajatele</h1>
       <ol>
         <li>

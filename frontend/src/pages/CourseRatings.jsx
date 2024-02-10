@@ -28,9 +28,18 @@ function CourseRatings() {
   }, []);
 
   return (
-    <div>
-      <h2>{courseCode}</h2>
-      <h4>{courseName}</h4>
+    <div className="ratings-container">
+      <div className="ratings-header">
+        <div className="course-details">
+          <h1>{courseName}</h1>
+          <h2>{courseCode}</h2>
+        </div>
+        <div>
+          <button className="blue-button">
+            <a>Lisa hinnang</a>
+          </button>
+        </div>
+      </div>
       {/* <Link to={`${location.pathname}/hinda`} state={{ courseId: courseId }}>
         Lisa hinnang
       </Link> */}

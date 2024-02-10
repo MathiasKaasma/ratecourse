@@ -61,7 +61,6 @@ async function updateRatingCount(courseId) {
     [courseId]
   );
   const ratingCount = parseInt(ratingResult.rows[0].rating_count);
-  //console.log(ratingCount);
   // Update the courses table with the new rating count
   const updateResult = await pool.query(
     "UPDATE courses SET rating_count = $1 WHERE id= $2",
@@ -71,17 +70,41 @@ async function updateRatingCount(courseId) {
   return updateResult;
 }
 
-async function updateAverageRating(courseId) {
+async function updateRatings(courseId) {
   // Calculate the average rating
-  const averageResult = await pool.query(
-    "SELECT AVG(overall_rating) FROM ratings WHERE courseId= $1",
+  const averageResults = await pool.query(
+    `SELECT 
+      AVG(overall_rating) AS avg_overall,
+      AVG(difficulty_rating) AS avg_difficulty,
+      AVG(usefulness_rating) AS avg_usefulness,
+      AVG(interesting_rating) AS avg_interesting,
+      AVG(structure_rating) AS avg_structure 
+    FROM ratings WHERE courseId= $1`,
     [courseId]
   );
-  const averageRating = averageResult.rows[0].avg;
+  const overallRating = averageResults.rows[0].avg_overall ?? 0;
+  const difficultyRating = averageResults.rows[0].avg_difficulty ?? 0;
+  const usefulnessRating = averageResults.rows[0].avg_usefulness ?? 0;
+  const interestingRating = averageResults.rows[0].avg_interesting ?? 0;
+  const structureRating = averageResults.rows[0].avg_structure ?? 0;
+
   // Update the courses table with the new average rating
   const updateResult = await pool.query(
-    "UPDATE courses SET overall = $1 WHERE id = $2",
-    [averageRating, courseId]
+    `UPDATE courses 
+      SET overall = $1,
+          difficulty = $2,
+          usefulness = $3,
+          interesting = $4,
+          structure = $5
+    WHERE id = $6`,
+    [
+      overallRating,
+      difficultyRating,
+      usefulnessRating,
+      interestingRating,
+      structureRating,
+      courseId,
+    ]
   );
 
   return updateResult;
@@ -91,6 +114,7 @@ app.post("/api/courses/:courseId", async (req, res) => {
   const { courseId } = req.params;
   const { professor_name, year_taken, semester_taken, ...otherFields } =
     req.body;
+
   const queryValues = [
     courseId,
     professor_name,
@@ -123,9 +147,20 @@ app.post("/api/courses/:courseId", async (req, res) => {
     await pool.query(queryText, queryValues);
 
     // Update course table
-    await updateAverageRating(courseId);
+    await updateRatings(courseId);
     await updateRatingCount(courseId);
 
+    res.sendStatus(200);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+});
+
+app.post("/api/update/:courseId", async (req, res) => {
+  const { courseId } = req.params;
+  try {
+    await updateRatings(courseId);
+    await updateRatingCount(courseId);
     res.sendStatus(200);
   } catch (err) {
     res.status(500).send(err.message);

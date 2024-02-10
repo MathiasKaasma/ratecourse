@@ -6,11 +6,22 @@ function SchoolCourses() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
-  const location = useLocation();
-  const schoolId = location.state.schoolId || 1;
+  let schoolId = 1;
 
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
+
+  switch (schoolName) {
+    case "TalTech":
+      schoolId = 1;
+      break;
+    case "UT":
+      schoolId = 2;
+      break;
+    case "TLÜ":
+      schoolId = 3;
+      break;
+  }
 
   async function fetchCourses() {
     try {
@@ -42,26 +53,34 @@ function SchoolCourses() {
   return (
     <div className="courses-container">
       <div className="search-container">
-        <div className="search-individual">
-          <label className="search-label">Nimi</label>
-          <input
-            type="text"
-            placeholder="Otsi ainet nime järgi"
-            value={courseNameSearch}
-            onChange={(e) => {
-              setCourseNameSearch(e.target.value);
-            }}
-          />
+        <div className="search-group">
+          <div className="search-individual">
+            <label className="search-label">Nimi</label>
+            <input
+              type="text"
+              placeholder="Otsi ainet nime järgi"
+              value={courseNameSearch}
+              onChange={(e) => {
+                setCourseNameSearch(e.target.value);
+              }}
+            />
+          </div>
+          <div className="search-individual">
+            <label className="search-label">Ainekood</label>
+            <input
+              type="text"
+              placeholder="Otsi ainekoodi aluse järgi"
+              value={courseCodeSearch}
+              onChange={(e) => {
+                setCourseCodeSearch(e.target.value);
+              }}
+            />
+          </div>
         </div>
-        <div className="search-individual">
-          <label className="search-label">Ainekood</label>
-          <input
-            type="text"
-            placeholder="Otsi ainekoodi aluse järgi"
-            value={courseCodeSearch}
-            onChange={(e) => {
-              setCourseCodeSearch(e.target.value);
-            }}
+        <div>
+          <img
+            src={`http://localhost:5173/src/assets/${schoolName}.png`}
+            alt={`${schoolName} logo`}
           />
         </div>
       </div>

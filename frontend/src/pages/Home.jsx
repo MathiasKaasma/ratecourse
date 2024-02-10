@@ -19,7 +19,7 @@ function Home() {
   useEffect(() => {
     fetchSchools();
   }, []);
-
+  console.log(schools);
   return (
     <main className="main-content">
       <div className="main-header">
@@ -35,11 +35,11 @@ function Home() {
           {schools.map((school) => (
             <Link
               key={school.id}
-              to={`/${school.name}`}
+              to={`/${school.short_name}`}
               state={{ schoolId: school.id }}
             >
               <img
-                src={`http://localhost:5173/src/assets/${school.name}.png`}
+                src={`http://localhost:5173/src/assets/${school.short_name}.png`}
                 alt={`${school.name} logo`}
               />
             </Link>

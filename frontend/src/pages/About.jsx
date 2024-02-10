@@ -1,7 +1,7 @@
 function About() {
   return (
-    <div>
-      <h2>Hinda Kursust</h2>
+    <div className="more-info">
+      <h1>Hinda Kursust</h1>
       <p>
         'Hinda kursust' on loodud selleks, et pakkuda tudengitele väärtuslikku
         teavet ja tagasisidet erinevate ülikoolikursuste kohta, mis aitab neil

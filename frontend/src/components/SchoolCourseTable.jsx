@@ -21,7 +21,7 @@ function SchoolCourseTable({ courses, schoolName }) {
             <Link
               key={course.id}
               to={`/${schoolName}/${course.code}`}
-              state={{ courseId: course.id, courseName: course.name }}
+              state={{ courseName: course.name }}
               className="course-item"
             >
               <div className="course-code">{course.code}</div>

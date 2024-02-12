@@ -1,32 +1,19 @@
 import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import SchoolCourseTable from "../components/SchoolCourseTable";
 
 function SchoolCourses() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
-  let schoolId = 1;
 
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
 
-  switch (schoolName) {
-    case "TalTech":
-      schoolId = 1;
-      break;
-    case "UT":
-      schoolId = 2;
-      break;
-    case "TLÜ":
-      schoolId = 3;
-      break;
-  }
-
   async function fetchCourses() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/schools/${schoolId}`
+        `${import.meta.env.VITE_API_URL}/courses/${schoolName}`
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();

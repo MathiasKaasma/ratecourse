@@ -7,8 +7,6 @@ const app = express();
 
 app.use(cors());
 
-// Parse JSON bodies (for POST requests)
-// app.use(bodyParser.json());
 app.use(express.json());
 
 const pool = new Pool({
@@ -24,25 +22,43 @@ app.get("/api/schools", async (req, res) => {
     const result = await pool.query("SELECT * FROM schools");
     res.json(result.rows);
   } catch (err) {
-    res.status(500).send(err.message);
+    res
+      .status(500)
+      .send({ error: "Internal Server Error", message: err.message });
   }
 });
 
-app.get("/api/schools/:schoolId", async (req, res) => {
-  const { schoolId } = req.params;
+app.get("/api/courses/:schoolAcronym", async (req, res) => {
+  const { schoolAcronym } = req.params;
   try {
     const result = await pool.query(
-      "SELECT * FROM courses WHERE schoolId= $1",
-      [schoolId]
+      "SELECT * FROM courses WHERE school_name_acronym = $1",
+      [schoolAcronym]
     );
     res.json(result.rows);
   } catch (err) {
-    res.status(500).send(err.message);
+    res
+      .status(500)
+      .send({ error: "Internal Server Error", message: err.message });
   }
 });
 
-app.get("/api/courses/:courseId", async (req, res) => {
-  const { courseId } = req.params;
+async function getCourseId(schoolAcronym, courseCode) {
+  const courseResult = await pool.query(
+    `SELECT id FROM courses WHERE code = $1 AND school_name_acronym = $2`,
+    [courseCode, schoolAcronym]
+  );
+  return courseResult.rows.length > 0 ? courseResult.rows[0].id : null;
+}
+
+app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
+  const { schoolAcronym, courseCode } = req.params;
+  const courseId = await getCourseId(schoolAcronym, courseCode);
+
+  if (!courseId) {
+    return res.status(404).send("Course id not found");
+  }
+
   try {
     const result = await pool.query(
       "SELECT * FROM ratings WHERE courseId= $1",
@@ -50,7 +66,9 @@ app.get("/api/courses/:courseId", async (req, res) => {
     );
     res.json(result.rows);
   } catch (err) {
-    res.status(500).send(err.message);
+    res
+      .status(500)
+      .send({ error: "Internal Server Error", message: err.message });
   }
 });
 
@@ -110,8 +128,14 @@ async function updateRatings(courseId) {
   return updateResult;
 }
 
-app.post("/api/courses/:courseId", async (req, res) => {
-  const { courseId } = req.params;
+app.post("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
+  const { schoolAcronym, courseCode } = req.params;
+  const courseId = await getCourseId(schoolAcronym, courseCode);
+
+  if (!courseId) {
+    return res.status(404).send("Course not found");
+  }
+
   const { professor_name, study_period, post_date, ...otherFields } = req.body;
 
   const queryValues = [
@@ -147,9 +171,11 @@ app.post("/api/courses/:courseId", async (req, res) => {
     await updateRatings(courseId);
     await updateRatingCount(courseId);
 
-    res.sendStatus(200);
+    res.status(200).send({ message: "Course ratings updated successfully" });
   } catch (err) {
-    res.status(500).send(err.message);
+    res
+      .status(500)
+      .send({ error: "Failed to update course ratings", message: err.message });
   }
 });
 

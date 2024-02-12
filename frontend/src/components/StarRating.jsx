@@ -14,8 +14,8 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
   };
 
   return (
-    <>
-      <label>{label}</label>
+    <div className="star-rating">
+      <h4>{label}</h4>
       <div className="rating-container">
         <div className="rating-bar">
           {[...Array(5)].map((_, index) => {
@@ -43,7 +43,7 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
       {errors[name] && (
         <div className="error-message">{errors[name].message}</div>
       )}
-    </>
+    </div>
   );
 }
 

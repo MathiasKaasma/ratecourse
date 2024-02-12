@@ -8,7 +8,7 @@ function TextRating({
 }) {
   return (
     <>
-      <div>
+      <div className="form-text-rating">
         {label}
         <input
           {...register(name, {

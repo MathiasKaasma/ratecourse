@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams, useNavigate } from "react-router-dom";
 import LeaveReviewForm from "../components/LeaveReviewForm";
 import CourseRatingsTable from "../components/CourseRatingsTable";
 
 function CourseRatings() {
   const [ratings, setRatings] = useState({});
-  const { courseCode } = useParams();
+  const { schoolName, courseCode } = useParams();
+  const navigate = useNavigate();
   const location = useLocation();
-  const courseId = location.state.courseId || 1;
-  const courseName = location.state.courseName || "";
+  const courseName = location.state?.courseName ?? "";
 
   async function fetchRatings() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/courses/${courseId}`
+        `${import.meta.env.VITE_API_URL}/ratings/${schoolName}/${courseCode}`
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();
@@ -27,6 +27,14 @@ function CourseRatings() {
     fetchRatings();
   }, []);
 
+  const handleNavigate = () => {
+    navigate("#leave-review-title");
+    const element = document.getElementById("leave-review-title");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
     <div className="ratings-container">
       <div className="ratings-header">
@@ -34,8 +42,8 @@ function CourseRatings() {
           <div className="upper-details">
             <h1>{courseName}</h1>
             <div>
-              <button className="blue-button">
-                <a>Lisa hinnang</a>
+              <button className="blue-button" onClick={handleNavigate}>
+                Lisa hinnang
               </button>
             </div>
           </div>
@@ -43,9 +51,6 @@ function CourseRatings() {
           <h2>{courseCode}</h2>
         </div>
       </div>
-      {/* <Link to={`${location.pathname}/hinda`} state={{ courseId: courseId }}>
-        Lisa hinnang
-      </Link> */}
       <div className="rating-cards">
         {ratings.length > 0 ? (
           ratings.map((rating) => <CourseRatingsTable rating={rating} />)
@@ -53,7 +58,10 @@ function CourseRatings() {
           <p>Hinnangud puuduvad</p>
         )}
       </div>
-      <LeaveReviewForm courseId={courseId} />
+      <div className="leave-review-title" id="leave-review-title">
+        <h1>Jäta hinnang</h1>
+      </div>
+      <LeaveReviewForm schoolName={schoolName} courseCode={courseCode} />
     </div>
   );
 }

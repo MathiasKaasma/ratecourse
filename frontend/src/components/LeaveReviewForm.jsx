@@ -14,7 +14,7 @@ function getDate() {
   return today;
 }
 
-async function postReview({ data, courseId }) {
+async function postReview({ data, schoolName, courseCode }) {
   const {
     professor_name,
     study_period,
@@ -32,7 +32,7 @@ async function postReview({ data, courseId }) {
 
   // Post review
   const response = await fetch(
-    `http://localhost:5000/api/courses/${courseId}`,
+    `http://localhost:5000/api/ratings/${schoolName}/${courseCode}`,
     {
       method: "POST",
       body: JSON.stringify({
@@ -58,7 +58,7 @@ async function postReview({ data, courseId }) {
   return response;
 }
 
-function LeaveReview({ courseId }) {
+function LeaveReview({ schoolName, courseCode }) {
   const navigate = useNavigate();
   const {
     register,
@@ -71,7 +71,7 @@ function LeaveReview({ courseId }) {
   const onSubmit = async (data) => {
     console.log(data);
     try {
-      const response = await postReview({ data, courseId });
+      const response = await postReview({ data, schoolName, courseCode });
       if (response.status === 200) {
         navigate("/esitatud");
       } else {
@@ -87,132 +87,137 @@ function LeaveReview({ courseId }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form">
+    <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+      <div className="form-left">
+        {/* Star Ratings */}
+        <div className="star-ratings">
+          <StarRating
+            label="Üldine hinnang"
+            name="overall_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Üldine hinnang on nõutav" }}
+            errors={errors}
+          />
+          <StarRating
+            label="Raskusaste"
+            name="difficulty_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Raskusastme hinnang on nõutav" }}
+            errors={errors}
+          />
+          <StarRating
+            label="Huvitavus"
+            name="interesting_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Huvitavuse taseme hinnang on nõutav" }}
+            errors={errors}
+          />
+          <StarRating
+            label="Kasulikkus"
+            name="usefulness_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Kasulikkuse hinnang on nõutav" }}
+            errors={errors}
+          />
+          <StarRating
+            label="Kursuse struktuur"
+            name="structure_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Kursuse struktuuri hinnang on nõutav" }}
+            errors={errors}
+          />
+          <StarRating
+            label="Õppejõu hinnang"
+            name="professor_rating"
+            register={register}
+            setValue={setValue}
+            validation={{ required: "Õppejõu hinnang on nõutav" }}
+            errors={errors}
+          />
+        </div>
+      </div>
       {/* Misc data (prof name, year, semester) */}
-      <TextRating
-        label="Õppejõu nimi"
-        name="professor_name"
-        placeholder="Perekonna nimi"
-        register={register}
-        validation={{
-          required: "Õppejõu nimi on nõutav",
-        }}
-        errors={errors}
-      />
-
-      <div>
-        <span>Õppetöö periood</span>
-        <select
-          {...register("study_period", {
-            required: "Õppetöö periood on nõutav",
-          })}
-        >
-          <option value="">Läbimise semester</option>
-          <option value="Sügis 2023">Sügis 2023</option>
-          <option value="Kevad 2023">Kevad 2023</option>
-          <option value="Sügis 2022">Sügis 2022</option>
-          <option value="Kevad 2022">Kevad 2022</option>
-          <option value="Sügis 2021">Sügis 2021</option>
-          <option value="Kevad 2021">Kevad 2021</option>
-          <option value="Sügis 2020">Sügis 2020</option>
-          <option value="Kevad 2020">Kevad 2020</option>
-          <option value="Sügis 2019">Sügis 2019</option>
-          <option value="Kevad 2019">Kevad 2019</option>
-        </select>
-      </div>
-      {errors.study_period && <div>{errors.study_period.message}</div>}
-
-      {/* Star Ratings */}
-      <div>
-        <StarRating
-          label="Üldine hinnang"
-          name="overall_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Üldine hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Raskusaste"
-          name="difficulty_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Raskusastme hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Huvitavus"
-          name="interesting_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Huvitavuse taseme hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Kasulikkus"
-          name="usefulness_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Kasulikkuse hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Kursuse struktuur"
-          name="structure_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Kursuse struktuuri hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Õppejõu hinnang"
-          name="professor_rating"
-          register={register}
-          setValue={setValue}
-          validation={{ required: "Õppejõu hinnang on nõutav" }}
-          errors={errors}
-        />
-      </div>
-
-      {/* Text reviews */}
-      <div>
-        <TextRating
-          label="Üldised kommentaarid*"
-          name="overall_review"
-          placeholder="Mis on su üldised kommentaarid aine kohta?*"
-          register={register}
-          validation={{
-            required: "Üldine kommentaar on nõutav",
-          }}
-          errors={errors}
-        />
-        <TextRating
-          label="Aine sisu"
-          name="content_review"
-          placeholder="Kuidas õppejõud oli?"
-          register={register}
-          errors={errors}
-        />
-        <TextRating
-          label="Kommentaarid õppejõu osas"
-          name="professor_review"
-          placeholder="Kuidas õppejõud oli?"
-          register={register}
-          errors={errors}
-        />
-        <TextRating
-          label="Soovitused"
-          name="suggestions_review"
-          placeholder="Mis soovitusi sa tulevastele aine läbijatele annaks?"
-          register={register}
-          errors={errors}
-        />
-      </div>
-      <div>
-        <button disabled={isSubmitting} type="submit">
-          {isSubmitting ? "Laeb..." : "Esita"}
-        </button>
-        {errors.root && <div>{errors.root.message}</div>}
+      <div className="form-right">
+        <div className="course-version">
+          <h4>Õppeaine versioon</h4>
+          <div className="course-version-data">
+            <div className="study-period">
+              <select
+                {...register("study_period", {
+                  required: "Õppetöö periood on nõutav",
+                })}
+              >
+                <option value="">Õppetöö periood*</option>
+                <option value="Sügis 2023">Sügis 2023</option>
+                <option value="Kevad 2023">Kevad 2023</option>
+                <option value="Sügis 2022">Sügis 2022</option>
+                <option value="Kevad 2022">Kevad 2022</option>
+                <option value="Sügis 2021">Sügis 2021</option>
+                <option value="Kevad 2021">Kevad 2021</option>
+                <option value="Sügis 2020">Sügis 2020</option>
+                <option value="Kevad 2020">Kevad 2020</option>
+                <option value="Sügis 2019">Sügis 2019</option>
+                <option value="Kevad 2019">Kevad 2019</option>
+              </select>
+            </div>
+            {errors.study_period && <div>{errors.study_period.message}</div>}
+            <TextRating
+              // label="Õppejõu nimi"
+              name="professor_name"
+              placeholder="Õppejõud*"
+              register={register}
+              validation={{
+                required: "Õppejõu nimi on nõutav",
+              }}
+              errors={errors}
+            />
+          </div>
+        </div>
+        {/* Text reviews */}
+        <div>
+          <TextRating
+            label="Üldised kommentaarid*"
+            name="overall_review"
+            placeholder="Mis on su üldised kommentaarid aine kohta?*"
+            register={register}
+            validation={{
+              required: "Üldine kommentaar on nõutav",
+            }}
+            errors={errors}
+          />
+          <TextRating
+            label="Aine sisu"
+            name="content_review"
+            placeholder="Kuidas õppejõud oli?"
+            register={register}
+            errors={errors}
+          />
+          <TextRating
+            label="Kommentaarid õppejõu osas"
+            name="professor_review"
+            placeholder="Kuidas õppejõud oli?"
+            register={register}
+            errors={errors}
+          />
+          <TextRating
+            label="Soovitused"
+            name="suggestions_review"
+            placeholder="Mis soovitusi sa tulevastele aine läbijatele annaks?"
+            register={register}
+            errors={errors}
+          />
+        </div>
+        <div>
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Laeb..." : "Esita"}
+          </button>
+          {errors.root && <div>{errors.root.message}</div>}
+        </div>
       </div>
     </form>
   );

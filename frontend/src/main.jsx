@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import SchoolCourses from "./pages/SchoolCourses.jsx";
 import CourseRatings from "./pages/CourseRatings.jsx";
-import LeaveReview from "./pages/LeaveReview.jsx";
 import Header from "./components/Header.jsx";
 import ReviewConfirmation from "./components/ReviewConfirmation.jsx";
 import About from "./pages/About.jsx";
@@ -22,10 +21,6 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <Route path="/tingimused" element={<Terms />} />
         <Route path="/:schoolName" element={<SchoolCourses />} />
         <Route path="/:schoolName/:courseCode" element={<CourseRatings />} />
-        <Route
-          path="/:schoolName/:courseCode/hinda"
-          element={<LeaveReview />}
-        />
         <Route path="/esitatud" element={<ReviewConfirmation />} />
         <Route path="/kontakt" element={<Contact />} />
       </Routes>

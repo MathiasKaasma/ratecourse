@@ -75,10 +75,10 @@ function RatingDescription({ ratingValue, ratingType }) {
   }
 
   return (
-    <div className="number-rating">
-      <NumberRating number={ratingValue}></NumberRating>
+    <>
+      {/* <NumberRating number={ratingValue}></NumberRating> */}
       <p>{usedValues[ratingValue]}</p>
-    </div>
+    </>
   );
 }
 

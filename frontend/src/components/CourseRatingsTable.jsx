@@ -1,4 +1,4 @@
-import RatingDescription from "./RatingDescription";
+import NumberDescription from "./NumberDescription";
 import { format } from "date-fns";
 
 function CourseRatingsTable({ rating }) {
@@ -7,30 +7,33 @@ function CourseRatingsTable({ rating }) {
       <div className="rating-left">
         <div className="course-overall">
           <h3>Üldine</h3>
-          <RatingDescription
+          <NumberDescription
             ratingValue={rating.overall_rating}
             ratingType={"overall_rating"}
           />
         </div>
         <div className="number-ratings">
-          <RatingDescription
+          <NumberDescription
             ratingValue={rating.difficulty_rating}
             ratingType={"difficulty_rating"}
           />
-          <RatingDescription
+
+          <NumberDescription
             ratingValue={rating.interesting_rating}
             ratingType={"interesting_rating"}
           />
-          <RatingDescription
+
+          <NumberDescription
             ratingValue={rating.usefulness_rating}
             ratingType={"usefulness_rating"}
           />
 
-          <RatingDescription
+          <NumberDescription
             ratingValue={rating.structure_rating}
             ratingType={"structure_rating"}
           />
-          <RatingDescription
+
+          <NumberDescription
             ratingValue={rating.professor_rating}
             ratingType={"professor_rating"}
           />
@@ -46,8 +49,7 @@ function CourseRatingsTable({ rating }) {
             <div className="completion-data">
               <h4>Õppetöö periood:</h4>
               <div className="year-semester">
-                <p>{rating.semester_taken}</p>
-                <p>{rating.year_taken}</p>
+                <p>{rating.study_period}</p>
               </div>
             </div>
           </div>

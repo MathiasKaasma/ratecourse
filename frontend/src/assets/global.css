@@ -2,9 +2,15 @@
 :root {
   --primary-color: #1d87e8;
   --secondary-color: #f2f2f2;
-  /* --accent-color: #; */
+  --accent-color: rgba(0, 0, 0, 0.25);
   --text-color: #000000;
   --font-family: "Montserrat", sans-serif;
+  --rating-0: #b4b4b4;
+  --rating-1: #ff3535;
+  --rating-2: #ff9110;
+  --rating-3: #ffe600;
+  --rating-4: #4aff87;
+  --rating-5: #00c643;
 }
 
 * {
@@ -12,7 +18,7 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   color: var(--text-color);
   font-weight: 400;
 }
@@ -143,7 +149,7 @@ body {
 }
 
 .school-cards a {
-  box-shadow: 0px 3px 4px #b4b4b4;
+  box-shadow: 0px 3px 3px 0px var(--accent-color);
   margin: 0 1.8rem;
   min-width: 250px;
   border-radius: 15px;
@@ -192,7 +198,8 @@ body {
   overflow: visible;
   display: flex;
   flex-direction: column;
-  padding-right: 2rem;
+  margin-right: 2rem;
+  margin-bottom: 0.5rem;
   max-width: 400px;
   width: 100%;
 }
@@ -205,12 +212,14 @@ body {
 }
 
 .search-individual input {
-  border: none;
-  border-radius: 14px;
   padding: 6px 0 6px 10px;
   font-size: 1rem;
-  box-sizing: border-box;
   width: 100%;
+  border: none;
+  border-radius: 14px;
+  box-sizing: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
 }
 
 .divider {
@@ -250,13 +259,14 @@ body {
 }
 
 .course-item {
-  font-size: 1rem;
   display: flex;
   background-color: #ffffff;
-  box-shadow: 0px 3px 6px 0px #a4a4a4;
-  margin-top: 1rem;
+  font-size: 1rem;
+  padding: 0.5% 1rem;
+  margin-top: 1.2rem;
   border-radius: 14px;
-  padding: 0.7% 1rem;
+  /* border: 1px solid rgba(0, 0, 0, 0.1); */
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
 }
 
 .course-code {
@@ -280,6 +290,7 @@ body {
   border-radius: 6px;
   padding: 6px 0;
   text-align: center;
+  /* box-shadow: 0px 1px 1px 0px var(--accent-color); */
 }
 
 .rating-count {
@@ -288,22 +299,22 @@ body {
 }
 
 .rating-0 {
-  background-color: #b4b4b4;
+  background-color: var(--rating-0);
 }
 .rating-1 {
-  background-color: #ff3535;
+  background-color: var(--rating-1);
 }
 .rating-2 {
-  background-color: #ff9110;
+  background-color: var(--rating-2);
 }
 .rating-3 {
-  background-color: #ffe600;
+  background-color: var(--rating-3);
 }
 .rating-4 {
-  background-color: #4aff87;
+  background-color: var(--rating-4);
 }
 .rating-5 {
-  background-color: #00c643;
+  background-color: var(--rating-5);
 }
 
 .failed-search {
@@ -400,6 +411,7 @@ body {
   flex: 0 0 70px;
   font-size: 2rem;
   font-weight: 600;
+  box-shadow: 0px 1px 2px 0px var(--accent-color);
 }
 
 .number-ratings {
@@ -478,6 +490,66 @@ body {
 .review {
   margin-bottom: 15px;
 }
+
+/* Leave Review form */
+
+.rating-bar {
+  background-color: lightgray;
+  border-radius: 15px;
+  display: flex;
+  width: 100%; /* Set the width to fit your layout */
+  height: 20px; /* Set the height you want for the segments */
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+}
+
+.rating-segment {
+  flex-grow: 1; /* Each segment will take up equal space */
+  cursor: pointer;
+  border-style: none none none solid;
+  border-width: 3px;
+  border-color: rgb(255, 255, 255);
+  transition: background-color 0.3s;
+}
+
+.rating-segment:first-child {
+  border-style: none;
+}
+
+.selected-rating-1 {
+  background-color: var(--rating-1);
+  border-radius: 15px 0px 0px 15px;
+}
+.selected-rating-2 {
+  background-color: var(--rating-2);
+}
+.selected-rating-3 {
+  background-color: var(--rating-3);
+}
+.selected-rating-4 {
+  background-color: var(--rating-4);
+}
+.selected-rating-5 {
+  background-color: var(--rating-5);
+  border-radius: 0px 15px 15px 0px;
+}
+
+/* This will hide the radio button visually but keep it accessible to screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.error-message {
+  color: red; /* Style your error message */
+}
+
+/* Star Rating */
 
 /* Misc styling */
 .more-info {

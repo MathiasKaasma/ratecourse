@@ -112,14 +112,13 @@ async function updateRatings(courseId) {
 
 app.post("/api/courses/:courseId", async (req, res) => {
   const { courseId } = req.params;
-  const { professor_name, year_taken, semester_taken, ...otherFields } =
-    req.body;
+  const { professor_name, study_period, post_date, ...otherFields } = req.body;
 
   const queryValues = [
     courseId,
     professor_name,
-    year_taken,
-    semester_taken,
+    study_period,
+    post_date,
     ...Object.values(otherFields),
   ];
 
@@ -127,21 +126,19 @@ app.post("/api/courses/:courseId", async (req, res) => {
     INSERT INTO ratings (
       courseId,
       professor_name,
-      year_taken,
-      semester_taken,
+      study_period,
       post_date,
       overall_rating,
       difficulty_rating,
       interesting_rating,
       usefulness_rating,
       structure_rating,
-      materials_rating,
       professor_rating,
       overall_review,
       content_review,
       professor_review,
       suggestions_review
-    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)
+    ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   `;
   try {
     await pool.query(queryText, queryValues);

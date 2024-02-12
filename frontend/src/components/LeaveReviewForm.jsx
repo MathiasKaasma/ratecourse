@@ -2,7 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import StarRating from "./StarRating";
 import TextRating from "./TextRating";
-import RatingDescription from "./RatingDescription";
 
 function getDate() {
   // Get current date
@@ -18,14 +17,12 @@ function getDate() {
 async function postReview({ data, courseId }) {
   const {
     professor_name,
-    year_taken,
-    semester_taken,
+    study_period,
     overall_rating,
     difficulty_rating,
     interesting_rating,
     usefulness_rating,
     structure_rating,
-    materials_rating,
     professor_rating,
     overall_review,
     content_review,
@@ -40,15 +37,13 @@ async function postReview({ data, courseId }) {
       method: "POST",
       body: JSON.stringify({
         professor_name,
-        year_taken,
-        semester_taken,
+        study_period,
         post_date: getDate(),
         overall_rating,
         difficulty_rating,
         interesting_rating,
         usefulness_rating,
         structure_rating,
-        materials_rating,
         professor_rating,
         overall_review,
         content_review,
@@ -69,10 +64,12 @@ function LeaveReview({ courseId }) {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     try {
       const response = await postReview({ data, courseId });
       if (response.status === 200) {
@@ -102,33 +99,28 @@ function LeaveReview({ courseId }) {
         }}
         errors={errors}
       />
+
       <div>
-        <span>Aine läbimise aasta</span>
-        <input
-          {...register("year_taken", {
-            required: "Aine läbimise aasta on nõutav",
-            maxLength: {
-              value: 4,
-              message: "Aasta ei saa olla pikem kui 4 tähemärki",
-            },
-          })}
-          type="number"
-          placeholder="Aasta"
-        />
-      </div>
-      {errors.year_taken && <div>{errors.year_taken.message}</div>}
-      <div>
+        <span>Õppetöö periood</span>
         <select
-          {...register("semester_taken", {
-            required: "Semestri valik on nõutav",
+          {...register("study_period", {
+            required: "Õppetöö periood on nõutav",
           })}
         >
           <option value="">Läbimise semester</option>
-          <option value="Sügis">Sügis</option>
-          <option value="Kevad">Kevad</option>
+          <option value="Sügis 2023">Sügis 2023</option>
+          <option value="Kevad 2023">Kevad 2023</option>
+          <option value="Sügis 2022">Sügis 2022</option>
+          <option value="Kevad 2022">Kevad 2022</option>
+          <option value="Sügis 2021">Sügis 2021</option>
+          <option value="Kevad 2021">Kevad 2021</option>
+          <option value="Sügis 2020">Sügis 2020</option>
+          <option value="Kevad 2020">Kevad 2020</option>
+          <option value="Sügis 2019">Sügis 2019</option>
+          <option value="Kevad 2019">Kevad 2019</option>
         </select>
       </div>
-      {errors.semester_taken && <div>{errors.semester_taken.message}</div>}
+      {errors.study_period && <div>{errors.study_period.message}</div>}
 
       {/* Star Ratings */}
       <div>
@@ -136,6 +128,7 @@ function LeaveReview({ courseId }) {
           label="Üldine hinnang"
           name="overall_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Üldine hinnang on nõutav" }}
           errors={errors}
         />
@@ -143,6 +136,7 @@ function LeaveReview({ courseId }) {
           label="Raskusaste"
           name="difficulty_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Raskusastme hinnang on nõutav" }}
           errors={errors}
         />
@@ -150,6 +144,7 @@ function LeaveReview({ courseId }) {
           label="Huvitavus"
           name="interesting_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Huvitavuse taseme hinnang on nõutav" }}
           errors={errors}
         />
@@ -157,6 +152,7 @@ function LeaveReview({ courseId }) {
           label="Kasulikkus"
           name="usefulness_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Kasulikkuse hinnang on nõutav" }}
           errors={errors}
         />
@@ -164,20 +160,15 @@ function LeaveReview({ courseId }) {
           label="Kursuse struktuur"
           name="structure_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Kursuse struktuuri hinnang on nõutav" }}
-          errors={errors}
-        />
-        <StarRating
-          label="Materjalide kvaliteet"
-          name="materials_rating"
-          register={register}
-          validation={{ required: "Materjalide kvaliteedi hinnang on nõutav" }}
           errors={errors}
         />
         <StarRating
           label="Õppejõu hinnang"
           name="professor_rating"
           register={register}
+          setValue={setValue}
           validation={{ required: "Õppejõu hinnang on nõutav" }}
           errors={errors}
         />

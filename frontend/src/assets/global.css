@@ -83,6 +83,7 @@ header {
   cursor: pointer;
   border-radius: 12px;
   font-size: 1.3rem;
+  color: white;
 }
 
 .blue-button a {
@@ -493,7 +494,7 @@ body {
 
 /* Leave Review form */
 
-#leave-review-title {
+.leave-review-title {
   margin-top: 8vh;
 }
 
@@ -503,7 +504,7 @@ body {
   background-color: #f8f8f8;
   padding: 0.4%;
   margin: 2%;
-  width: 75%;
+  width: 56.25%;
   box-shadow: 0px 0px 6px 2px #e1e1e1;
   border-radius: 12px;
 }
@@ -513,7 +514,6 @@ body {
   flex-direction: column;
   padding: 2%;
   flex: 0 0 25%;
-  max-height: 35rem;
   background-color: #fcfcfc;
   box-shadow: 0px 0px 2px 0 #d4d4d4;
   border-radius: 12px;
@@ -533,11 +533,11 @@ body {
 .course-version-data {
   display: flex;
   flex-direction: row;
-  margin: 1% 0 3% 0;
+  margin: 0.5% 0 0 0;
 }
 
 .course-version-data div {
-  padding-right: 1rem;
+  margin-right: 1rem;
 }
 
 .study-period select {
@@ -545,6 +545,7 @@ body {
   box-shadow: 0px 2px 2px 0px var(--accent-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 6px;
+  padding: 1% 2% 1% 0;
 }
 
 .course-version-data .form-text-rating {
@@ -552,8 +553,9 @@ body {
 }
 
 .course-version-data .form-text-rating input {
-  padding: 0 0 0 0.2rem;
+  height: 22px;
   border-radius: 6px;
+  padding: 1% 2% 1% 3%;
 }
 
 .form-text-rating input {
@@ -564,9 +566,17 @@ body {
   border-radius: 9px;
 }
 
+.form-text-rating {
+  margin-bottom: 4%;
+}
+
 /* Star Rating */
 .star-rating {
   height: 80px;
+}
+
+.rating-container {
+  margin-top: 5px;
 }
 
 .rating-bar {
@@ -585,6 +595,11 @@ body {
   border-width: 2px;
   border-color: rgb(255, 255, 255);
   transition: background-color 0.3s;
+}
+
+.rating-container p {
+  margin-top: 2px;
+  text-align: center;
 }
 
 .rating-segment:first-child {

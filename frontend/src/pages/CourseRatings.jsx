@@ -28,8 +28,8 @@ function CourseRatings() {
   }, []);
 
   const handleNavigate = () => {
-    navigate("#leave-review-title");
-    const element = document.getElementById("leave-review-title");
+    navigate("#hinnang");
+    const element = document.getElementById("form");
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
@@ -53,14 +53,14 @@ function CourseRatings() {
       </div>
       <div className="rating-cards">
         {ratings.length > 0 ? (
-          ratings.map((rating) => <CourseRatingsTable rating={rating} />)
+          ratings.map((rating) => (
+            <CourseRatingsTable key={rating.id} rating={rating} />
+          ))
         ) : (
           <p>Hinnangud puuduvad</p>
         )}
       </div>
-      <div className="leave-review-title" id="leave-review-title">
-        <h1>Jäta hinnang</h1>
-      </div>
+      <h1 className="leave-review-title">Jäta hinnang</h1>
       <LeaveReviewForm schoolName={schoolName} courseCode={courseCode} />
     </div>
   );

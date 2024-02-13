@@ -87,7 +87,11 @@ function LeaveReview({ schoolName, courseCode }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="form-container">
+    <form
+      id="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className="form-container"
+    >
       <div className="form-left">
         {/* Star Ratings */}
         <div className="star-ratings">
@@ -124,15 +128,15 @@ function LeaveReview({ schoolName, courseCode }) {
             errors={errors}
           />
           <StarRating
-            label="Kursuse struktuur"
+            label="Struktuur"
             name="structure_rating"
             register={register}
             setValue={setValue}
-            validation={{ required: "Kursuse struktuuri hinnang on nõutav" }}
+            validation={{ required: "Struktuuri hinnang on nõutav" }}
             errors={errors}
           />
           <StarRating
-            label="Õppejõu hinnang"
+            label="Õppejõud"
             name="professor_rating"
             register={register}
             setValue={setValue}
@@ -164,8 +168,12 @@ function LeaveReview({ schoolName, courseCode }) {
                 <option value="Sügis 2019">Sügis 2019</option>
                 <option value="Kevad 2019">Kevad 2019</option>
               </select>
+              {errors.study_period && (
+                <div className="error-message">
+                  {errors.study_period.message}
+                </div>
+              )}
             </div>
-            {errors.study_period && <div>{errors.study_period.message}</div>}
             <TextRating
               // label="Õppejõu nimi"
               name="professor_name"
@@ -181,7 +189,7 @@ function LeaveReview({ schoolName, courseCode }) {
         {/* Text reviews */}
         <div>
           <TextRating
-            label="Üldised kommentaarid*"
+            label="Üldine*"
             name="overall_review"
             placeholder="Mis on su üldised kommentaarid aine kohta?*"
             register={register}
@@ -213,8 +221,8 @@ function LeaveReview({ schoolName, courseCode }) {
           />
         </div>
         <div>
-          <button disabled={isSubmitting} type="submit">
-            {isSubmitting ? "Laeb..." : "Esita"}
+          <button className="blue-button" disabled={isSubmitting} type="submit">
+            {isSubmitting ? "Laeb..." : "Esita hinnang"}
           </button>
           {errors.root && <div>{errors.root.message}</div>}
         </div>

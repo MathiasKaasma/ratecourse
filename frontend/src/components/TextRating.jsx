@@ -9,7 +9,7 @@ function TextRating({
   return (
     <>
       <div className="form-text-rating">
-        {label}
+        <h4>{label}</h4>
         <input
           {...register(name, {
             ...validation,
@@ -21,8 +21,10 @@ function TextRating({
           type="text"
           placeholder={placeholder}
         />
+        {errors[name] && (
+          <div className="error-message">{errors[name].message}</div>
+        )}
       </div>
-      {errors[name] && <div>{errors[name].message}</div>}
     </>
   );
 }

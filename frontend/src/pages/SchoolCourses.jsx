@@ -34,6 +34,9 @@ function SchoolCourses() {
         course.name.toLowerCase().includes(courseNameSearch.toLowerCase()) &&
         course.code.toLowerCase().startsWith(courseCodeSearch.toLowerCase())
     );
+
+    filteredCourses.sort((a, b) => b.rating_count - a.rating_count);
+
     setSearchedCourses(filteredCourses);
   }, [courseNameSearch, courseCodeSearch, allCourses]);
 

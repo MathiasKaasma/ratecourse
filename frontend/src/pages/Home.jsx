@@ -23,6 +23,7 @@ function Home() {
     <main className="main-content">
       <div className="main-header">
         <h1 className="title">Hinda Kursust</h1>
+        <div className="home-drop-shadow"></div>
         <p className="subtitle">
           loe teiste hinnanguid
           <br /> või kirjuta enda oma

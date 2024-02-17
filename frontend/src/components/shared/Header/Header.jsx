@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../assets/Logo.png";
+import logo from "../../../assets/Logo.png";
 import DropDownMenu from "./DropDownMenu.jsx";
+import styles from "./Header.module.css";
 
 function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,16 +10,16 @@ function Header() {
   return (
     <header>
       <Link to="/">
-        <div className="header-left">
-          <div className="header-logo">
+        <div className={styles["header-left"]}>
+          <div className={styles["header-logo"]}>
             <img src={logo} alt="Logo" />
           </div>
-          <div className="header-title">Hinda Kursust</div>
+          <div className={styles["header-title"]}>Hinda Kursust</div>
         </div>
       </Link>
-      <div className="header-right">
-        <div className="desktop-navigation">
-          <div className="header-links">
+      <div className={styles["header-right"]}>
+        <div className={styles["desktop-navigation"]}>
+          <div className={styles["header-links"]}>
             <Link to="/meist">Meist</Link>
             <Link to="/tingimused">Tingimused</Link>
           </div>
@@ -27,12 +28,14 @@ function Header() {
           </button>
         </div>
         <div
-          className={"mobile-navigation " + (menuOpen && "hamburger-active")}
+          className={
+            "mobile-navigation " + (menuOpen && styles["hamburger-active"])
+          }
           onClick={() => setMenuOpen(!menuOpen)}
         >
-          <span className="line1"></span>
-          <span className="line2"></span>
-          <span className="line3"></span>
+          <span className={styles["line1"]}></span>
+          <span className={styles["line2"]}></span>
+          <span className={styles["line3"]}></span>
         </div>
       </div>
       <DropDownMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />

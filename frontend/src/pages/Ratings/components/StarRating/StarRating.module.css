@@ -1,0 +1,63 @@
+.star-rating {
+  height: 80px;
+}
+
+.rating-container {
+  margin-top: 5px;
+}
+
+.rating-bar {
+  background-color: lightgray;
+  border-radius: 15px;
+  display: flex;
+  width: 100%; /* Set the width to fit your layout */
+  height: 20px; /* Set the height you want for the segments */
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+}
+
+.rating-segment {
+  flex-grow: 1; /* Each segment will take up equal space */
+  cursor: pointer;
+  border-style: none none none solid;
+  border-width: 2px;
+  border-color: rgb(255, 255, 255);
+  transition: background-color 0.3s;
+}
+
+.rating-container p {
+  margin-top: 2px;
+  text-align: center;
+}
+
+.rating-segment:first-child {
+  border-style: none;
+}
+
+.selected-rating-1 {
+  background-color: var(--rating-1);
+  border-radius: 15px 0px 0px 15px;
+}
+.selected-rating-2 {
+  background-color: var(--rating-2);
+}
+.selected-rating-3 {
+  background-color: var(--rating-3);
+}
+.selected-rating-4 {
+  background-color: var(--rating-4);
+}
+.selected-rating-5 {
+  background-color: var(--rating-5);
+  border-radius: 0px 15px 15px 0px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

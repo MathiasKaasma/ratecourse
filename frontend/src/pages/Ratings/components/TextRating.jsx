@@ -1,3 +1,5 @@
+import styles from "../Ratings.module.css";
+
 function TextRating({
   register,
   name,
@@ -8,7 +10,7 @@ function TextRating({
 }) {
   return (
     <>
-      <div className="form-text-rating">
+      <div className={styles["form-text-rating"]}>
         <h4>{label}</h4>
         <input
           {...register(name, {
@@ -22,7 +24,7 @@ function TextRating({
           placeholder={placeholder}
         />
         {errors[name] && (
-          <div className="error-message">{errors[name].message}</div>
+          <div className={styles["error-message"]}>{errors[name].message}</div>
         )}
       </div>
     </>

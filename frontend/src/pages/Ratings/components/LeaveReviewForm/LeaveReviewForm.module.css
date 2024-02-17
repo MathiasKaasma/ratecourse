@@ -1,0 +1,81 @@
+/* Leave Review form */
+
+.leave-review-title {
+  margin-top: 8vh;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  background-color: #f8f8f8;
+  padding: 0.4%;
+  margin: 2%;
+  width: 56.25%;
+  box-shadow: 0px 0px 6px 2px #e1e1e1;
+  border-radius: 12px;
+}
+
+.form-left {
+  display: flex;
+  flex-direction: column;
+  padding: 2%;
+  flex: 0 0 25%;
+  background-color: #fcfcfc;
+  box-shadow: 0px 0px 2px 0 #d4d4d4;
+  border-radius: 12px;
+}
+
+.form-right {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 74%;
+  background-color: #fcfcfc;
+  box-shadow: 0px 0px 2px 0 #d4d4d4;
+  border-radius: 12px;
+  margin-left: 1%;
+  padding: 2%;
+}
+
+.course-version-data {
+  display: flex;
+  flex-direction: row;
+  margin: 0.5% 0 0 0;
+}
+
+.course-version-data div {
+  margin-right: 1rem;
+}
+
+.study-period select {
+  color: gray;
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  padding: 1% 2% 1% 0;
+}
+
+.course-version-data .form-text-rating {
+  flex: 0 0 150px;
+}
+
+.course-version-data .form-text-rating input {
+  height: 22px;
+  border-radius: 6px;
+  padding: 1% 2% 1% 3%;
+}
+
+.form-text-rating input {
+  width: 100%;
+  padding: 1% 0 8% 1%;
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 9px;
+}
+
+.form-text-rating {
+  margin-bottom: 4%;
+}
+
+.error-message {
+  color: red;
+}

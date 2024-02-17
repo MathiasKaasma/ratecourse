@@ -1,4 +1,4 @@
-import NumberRating from "./NumberRating";
+import NumberRating from "../../../components/shared/NumberRating";
 
 function RatingDescription({ ratingValue, ratingType }) {
   let usedValues;
@@ -76,7 +76,6 @@ function RatingDescription({ ratingValue, ratingType }) {
 
   return (
     <>
-      {/* <NumberRating number={ratingValue}></NumberRating> */}
       <p>{usedValues[ratingValue]}</p>
     </>
   );

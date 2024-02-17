@@ -1,7 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import StarRating from "./StarRating";
-import TextRating from "./TextRating";
+import StarRating from "../StarRating/StarRating";
+import TextRating from "../TextRating";
+import styles from "./LeaveReviewForm.module.css";
 
 function getDate() {
   // Get current date
@@ -90,11 +91,11 @@ function LeaveReview({ schoolName, courseCode }) {
     <form
       id="form"
       onSubmit={handleSubmit(onSubmit)}
-      className="form-container"
+      className={styles["form-container"]}
     >
-      <div className="form-left">
+      <div className={styles["form-left"]}>
         {/* Star Ratings */}
-        <div className="star-ratings">
+        <div className={styles["star-ratings"]}>
           <StarRating
             label="Üldine hinnang"
             name="overall_rating"
@@ -146,11 +147,11 @@ function LeaveReview({ schoolName, courseCode }) {
         </div>
       </div>
       {/* Misc data (prof name, year, semester) */}
-      <div className="form-right">
-        <div className="course-version">
+      <div className={styles["form-right"]}>
+        <div className={styles["course-version"]}>
           <h4>Õppeaine versioon</h4>
-          <div className="course-version-data">
-            <div className="study-period">
+          <div className={styles["course-version-data"]}>
+            <div className={styles["study-period"]}>
               <select
                 {...register("study_period", {
                   required: "Õppetöö periood on nõutav",
@@ -169,7 +170,7 @@ function LeaveReview({ schoolName, courseCode }) {
                 <option value="Kevad 2019">Kevad 2019</option>
               </select>
               {errors.study_period && (
-                <div className="error-message">
+                <div className={styles["error-message"]}>
                   {errors.study_period.message}
                 </div>
               )}

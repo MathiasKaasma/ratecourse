@@ -1,0 +1,61 @@
+.course-table-headings {
+  display: flex;
+  font-size: 1.2rem;
+  padding: 0 1.5rem;
+  text-align: center;
+}
+
+.heading-code {
+  flex: 0 0 12%;
+  text-align: start;
+}
+
+.heading-name {
+  flex: 0 0 14%;
+  margin-right: 10%;
+}
+
+.heading-rating {
+  flex: 0 0 10%;
+  margin-right: 0.5%;
+}
+
+.heading-rating-count {
+  flex: 0 0 13%;
+}
+
+.course-list {
+  padding: 0.5rem 0.5rem;
+}
+
+.course-item {
+  display: flex;
+  background-color: #ffffff;
+  font-size: 1rem;
+  padding: 0.5% 1rem;
+  margin-top: 1.2rem;
+  border-radius: 14px;
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+  align-items: center;
+}
+
+.course-code {
+  margin-left: 0.5vw;
+  flex: 0 0 7%;
+}
+
+.course-name {
+  margin: auto;
+  flex: 0 0 21%;
+}
+
+.rating-count {
+  margin: auto;
+  flex: 0 0 4%;
+}
+
+.failed-search {
+  font-size: 1.5rem;
+  font-weight: 400;
+  padding: 2.5% 1%;
+}

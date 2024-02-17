@@ -1,6 +1,6 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styles from "./Home.module.css";
 
 function Home() {
   const [schools, setSchools] = useState([]);
@@ -19,19 +19,20 @@ function Home() {
   useEffect(() => {
     fetchSchools();
   }, []);
+
   return (
-    <main className="main-content">
-      <div className="main-header">
-        <h1 className="title">Hinda Kursust</h1>
-        <div className="home-drop-shadow"></div>
-        <p className="subtitle">
+    <main className={styles["main-content"]}>
+      <div className={styles["main-header"]}>
+        <h1 className={styles.title}>Hinda Kursust</h1>
+        <div className={styles["home-drop-shadow"]}></div>
+        <p className={styles.subtitle}>
           loe teiste hinnanguid
           <br /> või kirjuta enda oma
         </p>
       </div>
-      <div className="school-choice">
-        <h2 className="small-title">.</h2>
-        <div className="school-cards">
+      <div className={styles["school-choice"]}>
+        {/* <h2 className={styles["small-title"]}>,</h2> */}
+        <div className={styles["school-cards"]}>
           {schools.map((school) => (
             <Link key={school.id} to={`/${school.name_acronym}`}>
               <img

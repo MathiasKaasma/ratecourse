@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import SchoolCourseTable from "../components/SchoolCourseTable";
+import DesktopCourseTable from "./components/DesktopCourseTable";
+import MobileCourseTable from "./components/MobileCourseTable";
+import styles from "./Courses.module.css";
 
-function SchoolCourses() {
+function Courses() {
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1200);
 
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
@@ -40,12 +43,24 @@ function SchoolCourses() {
     setSearchedCourses(filteredCourses);
   }, [courseNameSearch, courseCodeSearch, allCourses]);
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 1200);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
-    <div className="courses-container">
-      <div className="search-container">
-        <div className="search-group">
-          <div className="search-individual">
-            <label className="search-label">Nimi</label>
+    <div className={styles["courses-container"]}>
+      <div className={styles["search-container"]}>
+        <div className={styles["search-group"]}>
+          <div className={styles["search-individual"]}>
+            <label className={styles["search-label"]}>Nimi</label>
             <input
               type="text"
               placeholder="Otsi ainet nime järgi"
@@ -55,11 +70,11 @@ function SchoolCourses() {
               }}
             />
           </div>
-          <div className="search-individual">
-            <label className="search-label">Ainekood</label>
+          <div className={styles["search-individual"]}>
+            <label className={styles["search-label"]}>Ainekood</label>
             <input
               type="text"
-              placeholder="Otsi ainekoodi aluse järgi"
+              placeholder="Otsi ainekoodi järgi"
               value={courseCodeSearch}
               onChange={(e) => {
                 setCourseCodeSearch(e.target.value);
@@ -67,17 +82,21 @@ function SchoolCourses() {
             />
           </div>
         </div>
-        <div>
+        <div className={styles["school-courses-picture"]}>
           <img
             src={`http://localhost:5173/src/assets/${schoolName}.png`}
             alt={`${schoolName} logo`}
           />
         </div>
       </div>
-      <div className="divider"></div>
-      <SchoolCourseTable courses={searchedCourses} schoolName={schoolName} />
+      <div className={styles["divider"]}></div>
+      {isMobile ? (
+        <MobileCourseTable courses={searchedCourses} schoolName={schoolName} />
+      ) : (
+        <DesktopCourseTable courses={searchedCourses} schoolName={schoolName} />
+      )}
     </div>
   );
 }
 
-export default SchoolCourses;
+export default Courses;

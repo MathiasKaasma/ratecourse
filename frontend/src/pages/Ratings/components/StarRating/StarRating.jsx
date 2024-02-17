@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import RatingDescription from "./RatingDescription";
+import RatingDescription from "../RatingDescription";
+import styles from "./StarRating.module.css";
 
 function StarRating({ register, name, validation, label, errors, setValue }) {
   const [selectedValue, setSelectedValue] = useState(0);
@@ -14,17 +15,19 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
   };
 
   return (
-    <div className="star-rating">
+    <div className={styles["star-rating"]}>
       <h4>{label}</h4>
-      <div className="rating-container">
-        <div className="rating-bar">
+      <div className={styles["rating-container"]}>
+        <div className={styles["rating-bar"]}>
           {[...Array(5)].map((_, index) => {
             const value = index + 1;
             return (
               <div
                 key={value}
-                className={`rating-segment ${
-                  selectedValue >= value ? `selected-rating-${value}` : ""
+                className={`${styles["rating-segment"]} ${
+                  selectedValue >= value
+                    ? styles[`selected-rating-${value}`]
+                    : ""
                 }`}
                 onClick={() => handleSegmentClick(value)}
               >
@@ -32,7 +35,7 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
                   type="radio"
                   name={name}
                   value={value}
-                  className="visually-hidden"
+                  className={styles["visually-hidden"]}
                 />
               </div>
             );
@@ -41,7 +44,7 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
         <RatingDescription ratingValue={selectedValue} ratingType={name} />
       </div>
       {errors[name] && (
-        <div className="error-message">{errors[name].message}</div>
+        <div className={styles["error-message"]}>{errors[name].message}</div>
       )}
     </div>
   );

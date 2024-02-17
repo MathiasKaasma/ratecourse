@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import LeaveReviewForm from "../components/LeaveReviewForm";
-import CourseRatingsTable from "../components/CourseRatingsTable";
+import LeaveReviewForm from "./components/LeaveReviewForm/LeaveReviewForm";
+import RatingsTable from "./components/RatingsTable";
+import styles from "./Ratings.module.css";
 
 function CourseRatings() {
   const [ratings, setRatings] = useState({});
@@ -36,10 +37,10 @@ function CourseRatings() {
   };
 
   return (
-    <div className="ratings-container">
-      <div className="ratings-header">
-        <div className="course-details">
-          <div className="upper-details">
+    <div className={styles["ratings-container"]}>
+      <div className={styles["ratings-header"]}>
+        <div className={styles["course-details"]}>
+          <div className={styles["upper-details"]}>
             <h1>{courseName}</h1>
             <div>
               <button className="blue-button" onClick={handleNavigate}>
@@ -51,16 +52,16 @@ function CourseRatings() {
           <h2>{courseCode}</h2>
         </div>
       </div>
-      <div className="rating-cards">
+      <div className={styles["rating-cards"]}>
         {ratings.length > 0 ? (
           ratings.map((rating) => (
-            <CourseRatingsTable key={rating.id} rating={rating} />
+            <RatingsTable key={rating.id} rating={rating} />
           ))
         ) : (
           <p>Hinnangud puuduvad</p>
         )}
       </div>
-      <h1 className="leave-review-title">Jäta hinnang</h1>
+      <h1 className={styles["leave-review-title"]}>Jäta hinnang</h1>
       <LeaveReviewForm schoolName={schoolName} courseCode={courseCode} />
     </div>
   );

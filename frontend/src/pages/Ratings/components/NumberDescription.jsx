@@ -1,4 +1,4 @@
-import NumberRating from "./NumberRating";
+import NumberRating from "../../../components/shared/NumberRating";
 import RatingDescription from "./RatingDescription";
 
 function NumberDescription({ ratingValue, ratingType }) {

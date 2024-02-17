@@ -1,10 +1,11 @@
 import NumberDescription from "./NumberDescription";
 import { format } from "date-fns";
+import styles from "../Ratings.module.css";
 
 function CourseRatingsTable({ rating }) {
   return (
-    <div className="rating" key={rating.id}>
-      <div className="rating-left">
+    <div className={styles.rating} key={rating.id}>
+      <div className={styles["rating-left"]}>
         <div className="course-overall">
           <h3>Üldine</h3>
           <NumberDescription
@@ -39,45 +40,49 @@ function CourseRatingsTable({ rating }) {
           />
         </div>
       </div>
-      <div className="rating-right">
-        <div className="rating-data">
-          <div className="reviewer-data">
-            <div className="professor-data">
+      <div className={styles["rating-right"]}>
+        <div className={styles["rating-data"]}>
+          <div className={styles["reviewer-data"]}>
+            <div className={styles["professor-data"]}>
               <h4>Õppejõud:</h4>
               <p>{rating.professor_name}</p>
             </div>
-            <div className="completion-data">
+            <div className={styles["completion-data"]}>
               <h4>Õppetöö periood:</h4>
-              <div className="year-semester">
+              <div className={styles["year-semester"]}>
                 <p>{rating.study_period}</p>
               </div>
             </div>
           </div>
-          <div className="post-date">
+          <div className={styles["post-date"]}>
             <h4>{format(rating.post_date, "MMM. dd, yyyy")}</h4>
           </div>
         </div>
-        <div className="rating-divider"></div>
-        <div className="text-reviews">
-          <div className="review overall-review">
+        <div className={styles["rating-divider"]}></div>
+        <div className={styles["text-reviews"]}>
+          <div className={`${styles["review"]} ${styles["overall-review"]}`}>
             <h4>Üldised kommentaarid</h4>
             <p>{rating.overall_review}</p>
           </div>
           {rating.content_review && (
-            <div className="review content-review">
+            <div className={`${styles["review"]} ${styles["content-review"]}`}>
               <h4>Kursuse sisu osas</h4>
               <p>{rating.content_review}</p>
             </div>
           )}
           {rating.professor_review && (
-            <div className="review professor-review">
+            <div
+              className={`${styles["review"]} ${styles["professor-review"]}`}
+            >
               <h4>Õppejõu kohta</h4>
               <p>{rating.professor_review}</p>
             </div>
           )}
 
           {rating.suggestions_review && (
-            <div className="review suggestions-review">
+            <div
+              className={`${styles["review"]} ${styles["suggestions-review"]}`}
+            >
               <h4>Soovitused</h4>
               <p>{rating.suggestions_review}</p>
             </div>

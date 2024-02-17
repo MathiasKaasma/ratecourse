@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
+import styles from "./Header.module.css";
 
 function Menu({ menuOpen, setMenuOpen }) {
   return (
-    <div className={"dropdown " + (menuOpen && "dropdown-active")}>
+    <div
+      className={`${styles.dropdown} ${menuOpen && styles["dropdown-active"]}`}
+    >
       <ul>
         <li onClick={() => setMenuOpen(false)}>
           <Link to="/">Avalehele</Link>

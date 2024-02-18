@@ -113,7 +113,7 @@ a {
   flex: 0 0 10rem;
   display: flex;
   flex-direction: column;
-  margin: auto;
+  margin-top: 5px;
   justify-content: center;
   align-items: center;
 }
@@ -150,6 +150,17 @@ a {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+
+.number-rating p {
+  overflow-x: visible;
+}
+
+/* For ratings page laptop/tablet view */
+@media screen and (max-width: 660px) {
+  .number-ratings {
+    margin: auto;
+  }
 }
 
 .number-ratings .number-rating [class^="rating-"] {
@@ -204,6 +215,8 @@ a {
   border-radius: 12px;
   font-size: 1.3rem;
   color: white;
+  min-width: 130px;
+  overflow-x: visible;
 }
 
 .blue-button a {

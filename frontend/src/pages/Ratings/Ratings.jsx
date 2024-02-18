@@ -32,7 +32,11 @@ function CourseRatings() {
     navigate("#hinnang");
     const element = document.getElementById("form");
     if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+      element.scrollIntoView({
+        behavior: "smooth",
+        block: "end",
+        inline: "nearest",
+      });
     }
   };
 
@@ -42,6 +46,7 @@ function CourseRatings() {
         <div className={styles["course-details"]}>
           <div className={styles["upper-details"]}>
             <h1>{courseName}</h1>
+            <h2 className={styles["course-details-mobile"]}>{courseCode}</h2>
             <div>
               <button className="blue-button" onClick={handleNavigate}>
                 Lisa hinnang
@@ -49,7 +54,7 @@ function CourseRatings() {
             </div>
           </div>
 
-          <h2>{courseCode}</h2>
+          <h2 className={styles["course-details-desktop"]}>{courseCode}</h2>
         </div>
       </div>
       <div className={styles["rating-cards"]}>

@@ -33,7 +33,7 @@ async function postReview({ data, schoolName, courseCode }) {
 
   // Post review
   const response = await fetch(
-    `http://localhost:5000/api/ratings/${schoolName}/${courseCode}`,
+    `${import.meta.env.VITE_API_URL}/ratings/${schoolName}/${courseCode}`,
     {
       method: "POST",
       body: JSON.stringify({
@@ -70,7 +70,6 @@ function LeaveReview({ schoolName, courseCode }) {
   } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
       const response = await postReview({ data, schoolName, courseCode });
       if (response.status === 200) {
@@ -170,7 +169,7 @@ function LeaveReview({ schoolName, courseCode }) {
                 <option value="Kevad 2019">Kevad 2019</option>
               </select>
               {errors.study_period && (
-                <div className={styles["error-message"]}>
+                <div className="error-message">
                   {errors.study_period.message}
                 </div>
               )}
@@ -225,7 +224,9 @@ function LeaveReview({ schoolName, courseCode }) {
           <button className="blue-button" disabled={isSubmitting} type="submit">
             {isSubmitting ? "Laeb..." : "Esita hinnang"}
           </button>
-          {errors.root && <div>{errors.root.message}</div>}
+          {errors.root && (
+            <div className="error-message">{errors.root.message}</div>
+          )}
         </div>
       </div>
     </form>

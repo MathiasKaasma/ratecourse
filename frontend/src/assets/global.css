@@ -26,11 +26,6 @@
 /* Default background blur effect */
 body {
   background: rgb(242, 242, 242);
-  /* background: linear-gradient(
-    215deg,
-    rgba(47, 130, 255, 0.3) 0%,
-    rgba(242, 242, 242, 0.3) 100%
-  ); */
   background: linear-gradient(
     205deg,
     rgba(47, 130, 255, 0.362) 0%,
@@ -45,6 +40,10 @@ h4 {
 
 a {
   text-decoration: none;
+}
+
+body {
+  scrollbar-width: thin;
 }
 
 /* Header */
@@ -182,10 +181,23 @@ a {
   border-radius: 12px;
 }
 
+/* Leave review form */
+.error-message {
+  font-size: 0.9rem;
+  color: red;
+}
+
 /* Misc styling */
 
 .more-info {
-  padding: 4rem 25%;
+  display: flex;
+  flex-direction: column;
+  margin: 4rem 20%;
+  padding: 1% 2%;
+  background-color: #f8f8f8;
+  box-shadow: 0px 1px 2px 0px var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
 }
 
 .more-info h1 {
@@ -194,8 +206,42 @@ a {
   text-align: center;
 }
 
+.more-info h2 {
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.more-info h1:last-of-type {
+  margin-top: 25px;
+}
+
+.more-info h1:first-of-type {
+  margin-top: 5px;
+}
+
 .more-info p {
   line-height: 1.3rem;
+}
+
+.more-info li {
+  margin-bottom: 10px;
+}
+
+.more-info strong {
+  font-weight: bold;
+}
+
+@media screen and (max-width: 1300px) {
+  .more-info {
+    margin: 4rem 15px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .more-info {
+    margin-top: 10px;
+  }
 }
 
 .courseBox {
@@ -204,6 +250,41 @@ a {
   align-items: center;
   max-width: 40%;
   justify-content: space-between;
+}
+
+/* Submission confirmation page */
+.confirmation-message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-message h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 75px;
+  font-weight: 500;
+  margin: 35px 0;
+  background-color: #fcfcfc;
+  padding: 5px 25px;
+  box-shadow: 0px 2px 2px 0px var(--accent-color);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+}
+
+@media screen and (max-width: 670px) {
+  .confirmation-message h1 {
+    height: 100%;
+    margin: 35px 15px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .confirmation-message h1 {
+    font-size: 26px;
+  }
 }
 
 /* Shared components */

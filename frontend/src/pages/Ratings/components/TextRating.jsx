@@ -1,4 +1,4 @@
-import styles from "../Ratings.module.css";
+import styles from "./LeaveReviewForm/LeaveReviewForm.module.css";
 
 function TextRating({
   register,
@@ -12,7 +12,7 @@ function TextRating({
     <>
       <div className={styles["form-text-rating"]}>
         <h4>{label}</h4>
-        <input
+        <textarea
           {...register(name, {
             ...validation,
             maxLength: {
@@ -24,7 +24,7 @@ function TextRating({
           placeholder={placeholder}
         />
         {errors[name] && (
-          <div className={styles["error-message"]}>{errors[name].message}</div>
+          <div className="error-message">{errors[name].message}</div>
         )}
       </div>
     </>

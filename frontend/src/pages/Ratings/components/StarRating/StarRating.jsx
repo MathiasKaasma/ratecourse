@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import RatingDescription from "../RatingDescription";
-import styles from "./StarRating.module.css";
+import styles from "../LeaveReviewForm/LeaveReviewForm.module.css";
 
 function StarRating({ register, name, validation, label, errors, setValue }) {
   const [selectedValue, setSelectedValue] = useState(0);
@@ -44,7 +44,7 @@ function StarRating({ register, name, validation, label, errors, setValue }) {
         <RatingDescription ratingValue={selectedValue} ratingType={name} />
       </div>
       {errors[name] && (
-        <div className={styles["error-message"]}>{errors[name].message}</div>
+        <div className="error-message">{errors[name].message}</div>
       )}
     </div>
   );

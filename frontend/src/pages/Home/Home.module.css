@@ -113,7 +113,7 @@ body {
   .title {
     font-size: 12vw;
     white-space: nowrap;
-    padding-top: 25%;
+    padding-top: 20%;
     text-shadow: 0 -10px 100px var(--primary-color);
   }
 
@@ -124,34 +124,22 @@ body {
 
 @media screen and (max-width: 604px) {
   .home-drop-shadow {
-    width: 600px;
-    box-shadow: 80px 340px 260px 80px rgba(4, 88, 177, 0.5);
+    width: 400px;
+    box-shadow: 60px 255px 160px 80px rgba(4, 88, 177, 0.5);
   }
 
   .title {
-    text-shadow: 0 -10px 80px var(--primary-color);
+    text-shadow: none;
+    padding-top: 50px;
   }
 
   .subtitle {
     font-size: 7vw;
     white-space: nowrap;
-    text-shadow: 0 0px 40px var(--primary-color);
+    text-shadow: none;
   }
 
   .main-content {
     padding: 0;
   }
-
-  /* .school-cards a {
-    margin: 0 0.3rem 0.8rem 0.3rem;
-    min-width: 0;
-    width: 200px;
-  }
-
-  .school-cards img {
-    height: 125px;
-    max-width: 330px;
-    background-color: #ffffff;
-    padding: 15px 15px;
-  } */
 }

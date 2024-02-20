@@ -45,12 +45,6 @@ function Terms() {
           atmosfäär.
         </li>
       </ol>
-      <p>
-        Meie eesmärk on luua keskkond, kus kõik kasutajad tunnevad end
-        turvaliselt ja väärtustatult, jagades oma kogemusi ja õppides teistelt.
-        Järgides neid juhiseid, aitad kaasa positiivse ja hariva kogukonna
-        loomisele.
-      </p>
     </div>
   );
 }

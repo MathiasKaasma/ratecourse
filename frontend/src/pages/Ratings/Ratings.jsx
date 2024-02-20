@@ -47,11 +47,11 @@ function CourseRatings() {
           <div className={styles["upper-details"]}>
             <h1>{courseName}</h1>
             <h2 className={styles["course-details-mobile"]}>{courseCode}</h2>
-            <div>
-              <button className="blue-button" onClick={handleNavigate}>
-                Lisa hinnang
-              </button>
-            </div>
+
+            <button className="blue-button" onClick={handleNavigate}>
+              Lisa hinnang
+            </button>
+            <div></div>
           </div>
 
           <h2 className={styles["course-details-desktop"]}>{courseCode}</h2>

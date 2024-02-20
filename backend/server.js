@@ -190,4 +190,27 @@ app.post("/api/update/:courseId", async (req, res) => {
   }
 });
 
+app.post("/api/contact", async (req, res) => {
+  const { first_name, last_name, email, message } = req.body;
+
+  const queryValues = [first_name, last_name, email, message];
+
+  const queryText = `
+    INSERT INTO contacts (
+      first_name,
+      last_name,
+      email,
+      message
+    ) VALUES ($1, $2, $3, $4)
+  `;
+  try {
+    await pool.query(queryText, queryValues);
+    res.status(200).send({ message: "Contact successfully submitted" });
+  } catch (err) {
+    res
+      .status(500)
+      .send({ error: "Failed to submit contact form", message: err.message });
+  }
+});
+
 app.listen(port, () => console.log(`Backend running on port ${port}`));

@@ -85,6 +85,10 @@ header {
   right: 0;
 }
 
+.dropdown-active {
+  display: none;
+}
+
 @media screen and (max-width: 856px) {
   .desktop-navigation {
     display: none;
@@ -95,12 +99,16 @@ header {
     flex: 1;
   }
 
+  .dropdown-active {
+    display: flex;
+  }
+
   header {
     padding: 1rem 3vw 1rem 1rem;
   }
 }
 
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 350px) {
   .header-title {
     display: none;
   }

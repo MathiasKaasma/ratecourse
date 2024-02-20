@@ -28,6 +28,16 @@
   padding-right: 15px;
 }
 
+.upper-details button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: visible;
+  min-width: 180px;
+  max-width: 190px;
+  max-height: 46px;
+}
+
 .rating-cards {
   display: flex;
   flex-direction: column;
@@ -164,6 +174,14 @@
   margin-bottom: 15px;
 }
 
+.leave-review-title {
+  margin-top: 8vh;
+}
+
+.error-message {
+  color: red;
+}
+
 @media screen and (max-width: 1500px) {
   .rating {
     width: 100%;
@@ -259,9 +277,19 @@
     flex-direction: column;
   }
 
+  .course-overall {
+    margin-top: 0;
+  }
+
+  .review-data-top {
+    margin-left: 0;
+  }
+
   .rating-left {
     flex: 1;
     margin-left: 1px;
+    margin-right: 1px;
+    margin-bottom: 0;
   }
 
   .rating-right {

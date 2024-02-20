@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
+import taltechLogo from "../../assets/taltech.png";
+import tlüLogo from "../../assets/tlü.png";
+import utLogo from "../../assets/ut.png";
 
 function Home() {
   const [schools, setSchools] = useState([]);
@@ -35,10 +38,15 @@ function Home() {
         <div className={styles["school-cards"]}>
           {schools.map((school) => (
             <Link key={school.id} to={`/${school.name_acronym}`}>
-              <img
-                src={`http://localhost:5173/src/assets/${school.name_acronym}.png`}
-                alt={`${school.name_full} logo`}
-              />
+              {school.name_acronym === "TalTech" && (
+                <img src={taltechLogo} alt={`${school.name_full} logo`} />
+              )}
+              {school.name_acronym === "TLÜ" && (
+                <img src={tlüLogo} alt={`${school.name_full} logo`} />
+              )}
+              {school.name_acronym === "UT" && (
+                <img src={utLogo} alt={`${school.name_full} logo`} />
+              )}
             </Link>
           ))}
         </div>

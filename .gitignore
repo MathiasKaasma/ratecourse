@@ -25,3 +25,4 @@ backend/process.env
 *.sln
 *.sw?
 
+backend/createSchema.js

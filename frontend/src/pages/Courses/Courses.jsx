@@ -43,7 +43,9 @@ function Courses() {
 
     filteredCourses.sort((a, b) => b.rating_count - a.rating_count);
 
-    setSearchedCourses(filteredCourses);
+    const slicedCourses = filteredCourses.slice(0, 50);
+
+    setSearchedCourses(slicedCourses);
   }, [courseNameSearch, courseCodeSearch, allCourses]);
 
   useEffect(() => {

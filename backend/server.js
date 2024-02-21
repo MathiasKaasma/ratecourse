@@ -75,14 +75,14 @@ app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
 async function updateRatingCount(courseId) {
   // Get current ratings count
   const ratingResult = await pool.query(
-    "SELECT rating_count FROM courses WHERE id= $1",
+    "SELECT COUNT(id) FROM ratings WHERE courseId= $1",
     [courseId]
   );
-  const ratingCount = parseInt(ratingResult.rows[0].rating_count);
+  const ratingCount = parseInt(ratingResult.rows[0].count);
   // Update the courses table with the new rating count
   const updateResult = await pool.query(
     "UPDATE courses SET rating_count = $1 WHERE id= $2",
-    [ratingCount + 1, courseId]
+    [ratingCount, courseId]
   );
 
   return updateResult;
@@ -179,7 +179,7 @@ app.post("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
   }
 });
 
-app.post("/api/update/:courseId", async (req, res) => {
+app.get("/api/update/:courseId", async (req, res) => {
   const { courseId } = req.params;
   try {
     await updateRatings(courseId);

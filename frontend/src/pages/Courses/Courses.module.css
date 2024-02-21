@@ -86,7 +86,6 @@
 
   .school-courses-picture img {
     max-height: 120px;
-    min-width: 25vw;
   }
 }
 
@@ -97,7 +96,6 @@
 
   .school-courses-picture img {
     max-height: 80px;
-    min-width: 18vw;
   }
 }
 

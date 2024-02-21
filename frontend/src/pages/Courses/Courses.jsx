@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import DesktopCourseTable from "./components/DesktopCourseTable";
 import MobileCourseTable from "./components/MobileCourseTable";
 import styles from "./Courses.module.css";
+import taltechLogo from "../../assets/taltech.png";
+import tlüLogo from "../../assets/tlü.png";
+import utLogo from "../../assets/ut.png";
 
 function Courses() {
   const [allCourses, setAllCourses] = useState([]);
@@ -83,10 +86,15 @@ function Courses() {
           </div>
         </div>
         <div className={styles["school-courses-picture"]}>
-          <img
-            src={`http://localhost:5173/src/assets/${schoolName}.png`}
-            alt={`${schoolName} logo`}
-          />
+          {schoolName === "TalTech" && (
+            <img src={taltechLogo} alt={`${schoolName} logo`} />
+          )}
+          {schoolName === "TLÜ" && (
+            <img src={tlüLogo} alt={`${schoolName} logo`} />
+          )}
+          {schoolName === "UT" && (
+            <img src={utLogo} alt={`${schoolName} logo`} />
+          )}
         </div>
       </div>
       <div className={styles["divider"]}></div>

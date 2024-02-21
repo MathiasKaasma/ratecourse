@@ -12,7 +12,8 @@
   border-radius: 9px;
   margin: 4px;
   resize: none;
-  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 0;
   padding: 5px 0 0 5px;
 }
 
@@ -36,10 +37,15 @@
   margin-right: 5px;
   padding-right: 5px;
   margin-left: 3px;
+  padding-bottom: 2px;
 }
 
 .email-form div textarea {
   height: 50px;
+}
+
+.email-form .error-message {
+  margin-top: 4px;
 }
 
 .message-form {
@@ -50,10 +56,15 @@
   margin-right: 5px;
   padding-right: 5px;
   margin-left: 3px;
+  padding-bottom: 2px;
 }
 
 .message-form textarea {
   height: 50px;
+}
+
+.message-form .error-message {
+  margin-top: 4px;
 }
 
 .form-container button {
@@ -63,8 +74,8 @@
 .error-message {
   color: red;
   font-size: 14px;
-  margin: 30px 0;
   text-align: left;
+  margin-left: 8px;
 }
 
 @media screen and (max-width: 320px) {

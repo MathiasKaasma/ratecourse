@@ -26,3 +26,5 @@ backend/process.env
 *.sw?
 
 backend/createSchema.js
+backend/insertCourses.js
+backend/insert_courses.sql

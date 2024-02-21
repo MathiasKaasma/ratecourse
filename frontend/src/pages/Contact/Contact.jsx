@@ -72,26 +72,30 @@ function Contact() {
                 autoComplete="given-name"
               />
               {errors.first_name && (
-                <div className="error-message">{errors.first_name.message}</div>
+                <div className={styles["error-message"]}>
+                  {errors.first_name.message}
+                </div>
               )}
             </div>
             <div>
               <textarea
                 type="text"
-                placeholder="Perekonna nimi *"
+                placeholder="Perekonnanimi *"
                 {...register("last_name", {
-                  required: "Perekonna nimi on nõutav",
+                  required: "Perekonnanimi on nõutav",
                   maxLength: {
                     value: 50,
                     message:
-                      "Perekonna nimi ei tohi olla rohkem kui 50 tähemärki pikk",
+                      "Perekonnanimi ei tohi olla rohkem kui 50 tähemärki pikk",
                   },
                 })}
                 autoComplete="family-name"
               />
 
               {errors.last_name && (
-                <div className="error-message">{errors.last_name.message}</div>
+                <div className={styles["error-message"]}>
+                  {errors.last_name.message}
+                </div>
               )}
             </div>
           </div>
@@ -110,7 +114,9 @@ function Contact() {
               autoComplete="email"
             />
             {errors.email && (
-              <div className="error-message">{errors.email.message}</div>
+              <div className={styles["error-message"]}>
+                {errors.email.message}
+              </div>
             )}
           </div>
           <div className={styles["message-form"]}>
@@ -126,14 +132,16 @@ function Contact() {
               })}
             />
             {errors.message && (
-              <div className="error-message">{errors.message.message}</div>
+              <div className={styles["error-message"]}>
+                {errors.message.message}
+              </div>
             )}
           </div>
           <button className="blue-button" disabled={isSubmitting} type="submit">
             {isSubmitting ? "Laeb..." : "Esita"}
           </button>
           {errors.root && (
-            <div className="error-message">{errors.root.message}</div>
+            <div className={styles["error-message"]}>{errors.root.message}</div>
           )}
         </form>
       </div>

@@ -50,6 +50,7 @@ body {
   font-weight: 200;
   margin-bottom: 4rem;
   text-shadow: 0 0px 70px var(--primary-color);
+  text-align: start;
 }
 
 .school-choice {

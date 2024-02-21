@@ -27,11 +27,11 @@ function MobileSchoolCourseTable({ courses, schoolName }) {
               </div>
               <div className={styles["number-ratings"]}>
                 <div className={styles["overall-rating"]}>
-                  <p>Üldine</p>
+                  <p>Üldhinnang</p>
                   <NumberRating number={course.overall}></NumberRating>
                 </div>
                 <div className={styles["difficulty-rating"]}>
-                  <p>Raskus</p>
+                  <p>Raskusaste</p>
                   <NumberRating number={course.difficulty}></NumberRating>
                 </div>
                 <div className={styles["usefulness-rating"]}>

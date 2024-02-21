@@ -8,10 +8,13 @@ import tlüLogo from "../../assets/tlü.png";
 import utLogo from "../../assets/ut.png";
 
 function Courses() {
+  const mobileViewWidth = 1500;
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 1200);
+  const [isMobile, setIsMobile] = useState(
+    window.innerWidth <= mobileViewWidth
+  );
 
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
@@ -50,7 +53,7 @@ function Courses() {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 1200);
+      setIsMobile(window.innerWidth <= mobileViewWidth);
     };
 
     window.addEventListener("resize", handleResize);
@@ -65,10 +68,10 @@ function Courses() {
       <div className={styles["search-container"]}>
         <div className={styles["search-group"]}>
           <div className={styles["search-individual"]}>
-            <label className={styles["search-label"]}>Nimi</label>
+            <label className={styles["search-label"]}>Aine nimetus</label>
             <input
               type="text"
-              placeholder="Otsi ainet nime järgi"
+              placeholder="Otsi õppeainet nime järgi"
               value={courseNameSearch}
               onChange={(e) => {
                 setCourseNameSearch(e.target.value);
@@ -79,7 +82,7 @@ function Courses() {
             <label className={styles["search-label"]}>Ainekood</label>
             <input
               type="text"
-              placeholder="Otsi ainekoodi järgi"
+              placeholder="Otsi õppeainet koodi järgi"
               value={courseCodeSearch}
               onChange={(e) => {
                 setCourseCodeSearch(e.target.value);

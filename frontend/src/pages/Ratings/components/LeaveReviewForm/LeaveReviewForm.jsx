@@ -190,9 +190,9 @@ function LeaveReview({ schoolName, courseCode }) {
         {/* Text reviews */}
         <div>
           <TextRating
-            label="Üldine*"
+            label="Üldine kommentaar*"
             name="overall_review"
-            placeholder="Mis on su üldised kommentaarid aine kohta?*"
+            placeholder="Mis on Sinu mõtted selle õppeaine osas?*"
             register={register}
             validation={{
               required: "Üldine kommentaar on nõutav",
@@ -202,14 +202,14 @@ function LeaveReview({ schoolName, courseCode }) {
           <TextRating
             label="Aine sisu"
             name="content_review"
-            placeholder="Kuidas õppejõud oli?"
+            placeholder="Kas anti kodutöid? Kas kohalkäimine oli kohustuslik? Räägi mis tahad!"
             register={register}
             errors={errors}
           />
           <TextRating
             label="Kommentaarid õppejõu osas"
             name="professor_review"
-            placeholder="Kuidas õppejõud oli?"
+            placeholder="Kas õppejõud oli abivalmis ja toetav?"
             register={register}
             errors={errors}
           />

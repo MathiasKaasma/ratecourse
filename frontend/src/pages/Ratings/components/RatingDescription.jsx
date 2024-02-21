@@ -8,14 +8,16 @@ function RatingDescription({ ratingValue, ratingType }) {
     3: "Normaalne kursus",
     4: "Hea kursus",
     5: "Suurepärane kursus",
+    // ... kursus
   };
 
   const professorValues = {
-    1: "Tragiiline õppejõud",
-    2: "Halb õppejõud",
-    3: "Okei õppejõud",
+    1: "Nõrk õppejõud",
+    2: "Rahuldav õppejõud",
+    3: "Keskpärane õppejõud",
     4: "Hea õppejõud",
-    5: "Suurepärane õppejõud",
+    5: "Tipptasemel õppejõud",
+    // ... õppejõud
   };
 
   const difficultyValues = {
@@ -24,6 +26,7 @@ function RatingDescription({ ratingValue, ratingType }) {
     3: "Mitte raske",
     4: "Kerge",
     5: "Väga kerge",
+    // ?
   };
 
   const interestingValues = {
@@ -32,6 +35,7 @@ function RatingDescription({ ratingValue, ratingType }) {
     3: "Veidi huvitav",
     4: "Huvitav",
     5: "Väga huvitav",
+    // ?
   };
 
   const usefulnessValues = {
@@ -40,6 +44,7 @@ function RatingDescription({ ratingValue, ratingType }) {
     3: "Veidi kasulik",
     4: "Kasulik",
     5: "Väga kasulik",
+    // ?
   };
 
   const structureValues = {
@@ -48,6 +53,7 @@ function RatingDescription({ ratingValue, ratingType }) {
     3: "Okei ülesehitus",
     4: "Hea ülesehitus",
     5: "Suurepärane ülesehitus",
+    // ülesehitus
   };
 
   switch (ratingType) {

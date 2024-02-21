@@ -64,19 +64,19 @@
   padding: 2.5% 1%;
 }
 
-@media screen and (max-width: 460px) {
+@media screen and (max-width: 560px) {
   .number-ratings .structure-rating {
     display: none;
   }
 }
 
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 460px) {
   .number-ratings .interesting-rating {
     display: none;
   }
 }
 
-@media screen and (max-width: 260px) {
+@media screen and (max-width: 360px) {
   .number-ratings .usefulness-rating {
     display: none;
   }

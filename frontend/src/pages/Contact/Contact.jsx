@@ -105,10 +105,10 @@ function Contact() {
               type="text"
               placeholder="Email *"
               {...register("email", {
-                required: "E-posti aadress on nõutav",
+                required: "Emaili aadress on nõutav",
                 pattern: {
                   value: /^\S+@\S+$/i,
-                  message: "E-posti aadress oli ebakorrektne",
+                  message: "Emaili aadress oli ebakorrektne",
                 },
               })}
               autoComplete="email"

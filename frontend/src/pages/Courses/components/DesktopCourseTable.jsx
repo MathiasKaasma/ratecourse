@@ -9,10 +9,10 @@ function DesktopSchoolCourseTable({ courses, schoolName }) {
       <div className={styles["course-table-headings"]}>
         <div className={styles["heading-code"]}>Ainekood</div>
         <div className={styles["heading-name"]}>Nimi</div>
-        <div className={styles["heading-rating"]}>Üldine</div>
-        <div className={styles["heading-rating"]}>Raskus</div>
-        <div className={styles["heading-rating"]}>Huvitav</div>
-        <div className={styles["heading-rating"]}>Kasulik</div>
+        <div className={styles["heading-rating"]}>Üldhinnang</div>
+        <div className={styles["heading-rating"]}>Raskusaste</div>
+        <div className={styles["heading-rating"]}>Huvitavus</div>
+        <div className={styles["heading-rating"]}>Kasulikkus</div>
         <div className={styles["heading-rating"]}>Struktuur</div>
         <div className={styles["heading-rating-count"]}>Hinnanguid</div>
       </div>

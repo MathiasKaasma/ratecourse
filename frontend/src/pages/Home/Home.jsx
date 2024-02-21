@@ -29,8 +29,10 @@ function Home() {
         <h1 className={styles.title}>Hinda Kursust</h1>
         <div className={styles["home-drop-shadow"]}></div>
         <p className={styles.subtitle}>
-          loe teiste hinnanguid
-          <br /> või kirjuta enda oma
+          {/* loe teiste hinnanguid
+          <br /> või kirjuta enda oma */}
+          tudengite hinnangud
+          <br /> ülikoolide kursustele
         </p>
       </div>
       <div className={styles["school-choice"]}>

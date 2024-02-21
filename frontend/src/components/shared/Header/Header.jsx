@@ -20,7 +20,8 @@ function Header() {
       <div className={styles["header-right"]}>
         <div className={styles["desktop-navigation"]}>
           <div className={styles["header-links"]}>
-            <Link to="/meist">Meist</Link>
+            <Link to="/">Avalehele</Link>
+            <Link to="/meist">Tutvustus</Link>
             <Link to="/tingimused">Tingimused</Link>
           </div>
           <button className="blue-button">

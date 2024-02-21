@@ -184,7 +184,9 @@ app.post("/api/update/:courseId", async (req, res) => {
   try {
     await updateRatings(courseId);
     await updateRatingCount(courseId);
-    res.sendStatus(200);
+    res
+      .status(200)
+      .send({ message: `Course id ${courseId} rating updated successfully` });
   } catch (err) {
     res.status(500).send(err.message);
   }

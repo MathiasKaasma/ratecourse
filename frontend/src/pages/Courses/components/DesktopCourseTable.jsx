@@ -2,8 +2,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import NumberRating from "../../../components/shared/NumberRating";
 import styles from "./DesktopCourseTable.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-function DesktopSchoolCourseTable({ courses, schoolName }) {
+function DesktopSchoolCourseTable({ courses, schoolName, fetchCourses }) {
   return (
     <>
       <div className={styles["course-table-headings"]}>
@@ -17,8 +18,16 @@ function DesktopSchoolCourseTable({ courses, schoolName }) {
         <div className={styles["heading-rating-count"]}>Hinnanguid</div>
       </div>
       <div className={styles["course-list"]}>
-        {courses.length > 0 ? (
-          courses.map((course) => (
+        {console.log(
+          "pages parameter in next courses is: " + (courses.length / 20 + 1)
+        )}
+        <InfiniteScroll
+          dataLength={courses.length}
+          next={fetchCourses({ page: courses.length / 20 + 1, limit: 20 })}
+          hasMore={false}
+          endMessage="Otsing ei vasta olemasolevatele kursustele (stiil failed-search)"
+        >
+          {courses.map((course) => (
             <Link
               key={course.id}
               to={`/${schoolName}/${course.code}`}
@@ -36,12 +45,8 @@ function DesktopSchoolCourseTable({ courses, schoolName }) {
                 {course.rating_count}
               </div>
             </Link>
-          ))
-        ) : (
-          <p className={styles["failed-search"]}>
-            Otsing ei vasta olemasolevatele kursustele
-          </p>
-        )}
+          ))}
+        </InfiniteScroll>
       </div>
     </>
   );

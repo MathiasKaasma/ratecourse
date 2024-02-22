@@ -8,7 +8,7 @@ import tlüLogo from "../../assets/tlü.png";
 import utLogo from "../../assets/ut.png";
 
 function Courses() {
-  const mobileViewWidth = 1500;
+  const mobileViewWidth = 1100; // change to 1500
   const [allCourses, setAllCourses] = useState([]);
   const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
@@ -19,21 +19,27 @@ function Courses() {
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
 
-  async function fetchCourses() {
+  async function fetchCourses({ page, limit }) {
+    console.log(page, limit);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/courses?` +
           new URLSearchParams({
             schoolAcronym: schoolName,
-            page: 1,
-            limit: 20,
+            page,
+            limit,
             courseNameSearch: courseNameSearch,
             courseCodeSearch: courseCodeSearch,
           })
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();
-      setAllCourses(data);
+      if (page == 1) {
+        setAllCourses(data);
+      } else {
+        setAllCourses(...allCourses, ...data);
+        console.log(allCourses);
+      }
       setSearchedCourses(data);
     } catch (error) {
       console.error("Fetching error: ", error);
@@ -41,7 +47,7 @@ function Courses() {
   }
 
   useEffect(() => {
-    fetchCourses();
+    fetchCourses({ page: 1, limit: 20 });
   }, []);
 
   useEffect(() => {
@@ -71,7 +77,7 @@ function Courses() {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchCourses();
+                  fetchCourses({ page: 1, limit: 20 });
                 }
               }}
             />
@@ -87,7 +93,7 @@ function Courses() {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchCourses();
+                  fetchCourses({ page: 1, limit: 20 });
                 }
               }}
             />
@@ -109,7 +115,11 @@ function Courses() {
       {isMobile ? (
         <MobileCourseTable courses={searchedCourses} schoolName={schoolName} />
       ) : (
-        <DesktopCourseTable courses={searchedCourses} schoolName={schoolName} />
+        <DesktopCourseTable
+          courses={searchedCourses}
+          schoolName={schoolName}
+          fetchCourses={fetchCourses()}
+        />
       )}
     </div>
   );

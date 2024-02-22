@@ -58,7 +58,7 @@ app.get("/api/courses", async (req, res) => {
   }
 
   // Order selection by rating count
-  query += " ORDER BY rating_count DESC";
+  query += " ORDER BY rating_count DESC, name ASC";
 
   // Add query limits
   query += ` LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;

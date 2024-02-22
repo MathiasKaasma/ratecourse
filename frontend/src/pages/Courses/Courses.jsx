@@ -22,7 +22,14 @@ function Courses() {
   async function fetchCourses() {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/courses/${schoolName}`
+        `${import.meta.env.VITE_API_URL}/courses?` +
+          new URLSearchParams({
+            schoolAcronym: schoolName,
+            page: 1,
+            limit: 20,
+            courseNameSearch: courseNameSearch,
+            courseCodeSearch: courseCodeSearch,
+          })
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();
@@ -36,20 +43,6 @@ function Courses() {
   useEffect(() => {
     fetchCourses();
   }, []);
-
-  useEffect(() => {
-    const filteredCourses = allCourses.filter(
-      (course) =>
-        course.name.toLowerCase().includes(courseNameSearch.toLowerCase()) &&
-        course.code.toLowerCase().startsWith(courseCodeSearch.toLowerCase())
-    );
-
-    filteredCourses.sort((a, b) => b.rating_count - a.rating_count);
-
-    const slicedCourses = filteredCourses.slice(0, 50);
-
-    setSearchedCourses(slicedCourses);
-  }, [courseNameSearch, courseCodeSearch, allCourses]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -76,6 +69,11 @@ function Courses() {
               onChange={(e) => {
                 setCourseNameSearch(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchCourses();
+                }
+              }}
             />
           </div>
           <div className={styles["search-individual"]}>
@@ -87,17 +85,22 @@ function Courses() {
               onChange={(e) => {
                 setCourseCodeSearch(e.target.value);
               }}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  fetchCourses();
+                }
+              }}
             />
           </div>
         </div>
         <div className={styles["school-courses-picture"]}>
-          {schoolName === "TalTech" && (
+          {schoolName.toLowerCase() === "taltech" && (
             <img src={taltechLogo} alt={`${schoolName} logo`} />
           )}
-          {schoolName === "TLÜ" && (
+          {schoolName.toLowerCase() === "tlü" && (
             <img src={tlüLogo} alt={`${schoolName} logo`} />
           )}
-          {schoolName === "UT" && (
+          {schoolName.toLowerCase() === "ut" && (
             <img src={utLogo} alt={`${schoolName} logo`} />
           )}
         </div>

@@ -28,13 +28,47 @@ app.get("/api/schools", async (req, res) => {
   }
 });
 
-app.get("/api/courses/:schoolAcronym", async (req, res) => {
-  const { schoolAcronym } = req.params;
+app.get("/api/courses", async (req, res) => {
+  const schoolAcronym = req.query.schoolAcronym.toLowerCase() || "taltech";
+  const courseCodeSearch = req.query.courseCodeSearch.toLowerCase() || "";
+  const courseNameSearch = req.query.courseNameSearch.toLowerCase() || "";
+  const page = req.query.page || 1;
+  let limit = req.query.limit || 20;
+
+  if (25 < limit || limit < 1) {
+    limit = 20;
+  }
+
+  // Params for SQL query
+  const params = [];
+
+  // Create SQL query
+  let query = "SELECT * FROM courses WHERE LOWER(school_name_acronym) = $1";
+  params.push(`${schoolAcronym}`);
+
+  if (courseCodeSearch) {
+    // Code starting with searched code
+    query += ` AND LOWER(code) LIKE $${params.length + 1}`;
+    params.push(`${courseCodeSearch}%`);
+  }
+  if (courseNameSearch) {
+    // Name includes searched name
+    query += ` AND LOWER(name) LIKE $${params.length + 1}`;
+    params.push(`%${courseNameSearch}%`);
+  }
+
+  // Order selection by rating count
+  query += " ORDER BY rating_count DESC";
+
+  // Add query limits
+  query += ` LIMIT $${params.length + 1} OFFSET $${params.length + 2}`;
+  params.push(`${limit}`, `${page * limit - limit}`);
+
+  // Query the courses
+  console.log(query);
+  console.log(params);
   try {
-    const result = await pool.query(
-      "SELECT * FROM courses WHERE school_name_acronym = $1",
-      [schoolAcronym]
-    );
+    const result = await pool.query(query, params);
     res.json(result.rows);
   } catch (err) {
     res
@@ -42,6 +76,22 @@ app.get("/api/courses/:schoolAcronym", async (req, res) => {
       .send({ error: "Internal Server Error", message: err.message });
   }
 });
+
+// OLD COURSE SEARCH
+// app.get("/api/courses/:schoolAcronym", async (req, res) => {
+//   const { schoolAcronym } = req.params;
+//   try {
+//     const result = await pool.query(
+//       "SELECT * FROM courses WHERE school_name_acronym = $1",
+//       [schoolAcronym]
+//     );
+//     res.json(result.rows);
+//   } catch (err) {
+//     res
+//       .status(500)
+//       .send({ error: "Internal Server Error", message: err.message });
+//   }
+// });
 
 async function getCourseId(schoolAcronym, courseCode) {
   const courseResult = await pool.query(

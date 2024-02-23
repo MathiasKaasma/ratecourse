@@ -1,6 +1,5 @@
 .courses-container {
   padding: 3rem 10vw;
-  overflow: visible;
 }
 
 .search-container {
@@ -62,7 +61,6 @@
 @media screen and (max-width: 900px) {
   .courses-container {
     padding: 0.4rem 4vw;
-    overflow: visible;
   }
 
   .search-group {

@@ -41,12 +41,14 @@
 
 .course-code {
   margin-left: 0.5vw;
-  flex: 0 0 7%;
+  /* flex: 0 0 9%; */
+  flex: 0 0 9%;
+  word-wrap: break-word;
 }
 
 .course-name {
   margin: auto;
-  flex: 0 0 21%;
+  flex: 0 0 20%;
 }
 
 .rating-count {

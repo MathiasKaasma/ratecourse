@@ -8,9 +8,8 @@ import tlüLogo from "../../assets/tlü.png";
 import utLogo from "../../assets/ut.png";
 
 function Courses() {
-  const mobileViewWidth = 1100; // change to 1500
+  const mobileViewWidth = 1500;
   const [allCourses, setAllCourses] = useState([]);
-  const [searchedCourses, setSearchedCourses] = useState([]);
   const { schoolName } = useParams();
   const [isMobile, setIsMobile] = useState(
     window.innerWidth <= mobileViewWidth
@@ -19,8 +18,9 @@ function Courses() {
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
 
+  const [hasMoreCourses, setHasMoreCourses] = useState(true);
+
   async function fetchCourses({ page, limit }) {
-    console.log(page, limit);
     try {
       const response = await fetch(
         `${import.meta.env.VITE_API_URL}/courses?` +
@@ -37,17 +37,17 @@ function Courses() {
       if (page == 1) {
         setAllCourses(data);
       } else {
-        setAllCourses(...allCourses, ...data);
-        console.log(allCourses);
+        setAllCourses([...allCourses, ...data]);
       }
-      setSearchedCourses(data);
+      setHasMoreCourses(data.length === limit);
     } catch (error) {
       console.error("Fetching error: ", error);
+      setHasMoreCourses(false);
     }
   }
 
   useEffect(() => {
-    fetchCourses({ page: 1, limit: 20 });
+    fetchCourses({ page: 1, limit: 24 });
   }, []);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function Courses() {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchCourses({ page: 1, limit: 20 });
+                  fetchCourses({ page: 1, limit: 24 });
                 }
               }}
             />
@@ -93,7 +93,7 @@ function Courses() {
               }}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  fetchCourses({ page: 1, limit: 20 });
+                  fetchCourses({ page: 1, limit: 24 });
                 }
               }}
             />
@@ -113,12 +113,18 @@ function Courses() {
       </div>
       <div className={styles["divider"]}></div>
       {isMobile ? (
-        <MobileCourseTable courses={searchedCourses} schoolName={schoolName} />
+        <MobileCourseTable
+          courses={allCourses}
+          schoolName={schoolName}
+          fetchCourses={fetchCourses}
+          hasMoreCourses={hasMoreCourses}
+        />
       ) : (
         <DesktopCourseTable
-          courses={searchedCourses}
+          courses={allCourses}
           schoolName={schoolName}
-          fetchCourses={fetchCourses()}
+          fetchCourses={fetchCourses}
+          hasMoreCourses={hasMoreCourses}
         />
       )}
     </div>

@@ -18,20 +18,27 @@
   padding: 0;
   box-sizing: border-box;
   font-family: var(--font-family);
-  overflow-x: hidden;
   color: var(--text-color);
   font-weight: 400;
+  overflow-x: hidden;
 }
 
 /* Default background blur effect */
 body {
-  background: rgb(242, 242, 242);
+  /* background: rgb(242, 242, 242);
   background: linear-gradient(
     205deg,
     rgba(47, 130, 255, 0.362) 0%,
     rgba(242, 242, 242, 0.3) 100%
-  );
+  ); */
+  background: rgba(84, 157, 255, 0.366);
   background-size: 200% 200%;
+}
+
+/* Fix for infinite load in courses page */
+html,
+body {
+  height: auto;
 }
 
 h4 {
@@ -65,7 +72,7 @@ body {
   transition: all 2s ease;
 }
 
-@media screen and (max-width: 856px) {
+@media screen and (max-width: 970px) {
   .mobile-navigation {
     display: flex;
     flex: 1;

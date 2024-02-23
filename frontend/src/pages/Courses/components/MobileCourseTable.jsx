@@ -1,14 +1,41 @@
-import { useState, useEffect } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import NumberRating from "../../../components/shared/NumberRating";
 import styles from "./MobileCourseTable.module.css";
+import InfiniteScroll from "react-infinite-scroll-component";
 
-function MobileSchoolCourseTable({ courses, schoolName }) {
+function MobileSchoolCourseTable({
+  courses,
+  schoolName,
+  fetchCourses,
+  hasMoreCourses,
+}) {
   return (
     <>
       <div className={styles["course-list"]}>
-        {courses.length > 0 ? (
-          courses.map((course) => (
+        <InfiniteScroll
+          dataLength={courses.length}
+          scrollableTarget="window"
+          loader={courses.length === 0 ? "" : <h3>Laeb...</h3>}
+          next={() => {
+            fetchCourses({
+              page: Math.ceil(courses.length / 24 + 1),
+              limit: 24,
+            });
+          }}
+          hasMore={hasMoreCourses}
+          endMessage={
+            courses.length === 0 ? (
+              <p className={styles["failed-search"]}>
+                Otsing ei vasta olemasolevatele kursustele
+              </p>
+            ) : (
+              <p className={styles["failed-search"]}>
+                Oled jõudnud otsitud kursuste lõppu
+              </p>
+            )
+          }
+        >
+          {courses.map((course) => (
             <Link
               key={course.id}
               to={`/${schoolName}/${course.code}`}
@@ -48,12 +75,8 @@ function MobileSchoolCourseTable({ courses, schoolName }) {
                 </div>
               </div>
             </Link>
-          ))
-        ) : (
-          <p className={styles["failed-search"]}>
-            Otsing ei vasta olemasolevatele kursustele
-          </p>
-        )}
+          ))}
+        </InfiniteScroll>
       </div>
     </>
   );

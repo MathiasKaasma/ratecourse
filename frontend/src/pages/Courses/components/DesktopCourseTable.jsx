@@ -1,10 +1,14 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import NumberRating from "../../../components/shared/NumberRating";
 import styles from "./DesktopCourseTable.module.css";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-function DesktopSchoolCourseTable({ courses, schoolName, fetchCourses }) {
+function DesktopSchoolCourseTable({
+  courses,
+  schoolName,
+  fetchCourses,
+  hasMoreCourses,
+}) {
   return (
     <>
       <div className={styles["course-table-headings"]}>
@@ -18,14 +22,28 @@ function DesktopSchoolCourseTable({ courses, schoolName, fetchCourses }) {
         <div className={styles["heading-rating-count"]}>Hinnanguid</div>
       </div>
       <div className={styles["course-list"]}>
-        {console.log(
-          "pages parameter in next courses is: " + (courses.length / 20 + 1)
-        )}
         <InfiniteScroll
           dataLength={courses.length}
-          next={fetchCourses({ page: courses.length / 20 + 1, limit: 20 })}
-          hasMore={false}
-          endMessage="Otsing ei vasta olemasolevatele kursustele (stiil failed-search)"
+          scrollableTarget="window"
+          loader={courses.length === 0 ? "" : <h3>Laeb...</h3>}
+          next={() => {
+            fetchCourses({
+              page: Math.ceil(courses.length / 24 + 1),
+              limit: 24,
+            });
+          }}
+          hasMore={hasMoreCourses}
+          endMessage={
+            courses.length === 0 ? (
+              <p className={styles["failed-search"]}>
+                Otsing ei vasta olemasolevatele kursustele
+              </p>
+            ) : (
+              <p className={styles["failed-search"]}>
+                Oled jõudnud otsitud kursuste lõppu
+              </p>
+            )
+          }
         >
           {courses.map((course) => (
             <Link

@@ -196,6 +196,22 @@ app.post("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
     ...Object.values(otherFields),
   ];
 
+  // Validate ratings
+  const ratings = [
+    "overall_rating",
+    "difficulty_rating",
+    "interesting_rating",
+    "usefulness_rating",
+    "structure_rating",
+    "professor_rating",
+  ];
+
+  for (const rating of ratings) {
+    if (otherFields[rating] < 1 || otherFields[rating] > 5) {
+      return res.status(404).send(`Invalid ${rating} value`);
+    }
+  }
+
   const queryText = `
     INSERT INTO ratings (
       courseId,

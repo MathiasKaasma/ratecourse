@@ -4,6 +4,7 @@ const cors = require("cors");
 const { Pool } = require("pg");
 const port = 5000;
 const app = express();
+const rateLimit = require("express-rate-limit");
 
 app.use(cors());
 
@@ -16,6 +17,18 @@ const pool = new Pool({
   password: process.env.DB_PASSWORD,
   port: process.env.DB_PORT,
 });
+
+const generalLimiter = rateLimit({
+  windowMs: 5 * 60 * 1000, // 5 minutes
+  max: 1000, // limit each IP to 1000 requests per windowMs
+});
+
+const postLimiter = rateLimit({
+  windowMs: 3 * 60 * 1000, // 3 minutes
+  max: 10, // limit each IP to 10 requests per windowMs
+});
+
+app.use(generalLimiter);
 
 app.get("/api/schools", async (req, res) => {
   try {
@@ -76,22 +89,6 @@ app.get("/api/courses", async (req, res) => {
       .send({ error: "Internal Server Error", message: err.message });
   }
 });
-
-// OLD COURSE SEARCH
-// app.get("/api/courses/:schoolAcronym", async (req, res) => {
-//   const { schoolAcronym } = req.params;
-//   try {
-//     const result = await pool.query(
-//       "SELECT * FROM courses WHERE school_name_acronym = $1",
-//       [schoolAcronym]
-//     );
-//     res.json(result.rows);
-//   } catch (err) {
-//     res
-//       .status(500)
-//       .send({ error: "Internal Server Error", message: err.message });
-//   }
-// });
 
 async function getCourseId(schoolAcronym, courseCode) {
   const courseResult = await pool.query(
@@ -178,41 +175,45 @@ async function updateRatings(courseId) {
   return updateResult;
 }
 
-app.post("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
-  const { schoolAcronym, courseCode } = req.params;
-  const courseId = await getCourseId(schoolAcronym, courseCode);
+app.post(
+  "/api/ratings/:schoolAcronym/:courseCode",
+  postLimiter,
+  async (req, res) => {
+    const { schoolAcronym, courseCode } = req.params;
+    const courseId = await getCourseId(schoolAcronym, courseCode);
 
-  if (!courseId) {
-    return res.status(404).send("Course not found");
-  }
-
-  const { professor_name, study_period, post_date, ...otherFields } = req.body;
-
-  const queryValues = [
-    courseId,
-    professor_name,
-    study_period,
-    post_date,
-    ...Object.values(otherFields),
-  ];
-
-  // Validate ratings
-  const ratings = [
-    "overall_rating",
-    "difficulty_rating",
-    "interesting_rating",
-    "usefulness_rating",
-    "structure_rating",
-    "professor_rating",
-  ];
-
-  for (const rating of ratings) {
-    if (otherFields[rating] < 1 || otherFields[rating] > 5) {
-      return res.status(404).send(`Invalid ${rating} value`);
+    if (!courseId) {
+      return res.status(404).send("Course not found");
     }
-  }
 
-  const queryText = `
+    const { professor_name, study_period, post_date, ...otherFields } =
+      req.body;
+
+    const queryValues = [
+      courseId,
+      professor_name,
+      study_period,
+      post_date,
+      ...Object.values(otherFields),
+    ];
+
+    // Validate ratings
+    const ratings = [
+      "overall_rating",
+      "difficulty_rating",
+      "interesting_rating",
+      "usefulness_rating",
+      "structure_rating",
+      "professor_rating",
+    ];
+
+    for (const rating of ratings) {
+      if (otherFields[rating] < 1 || otherFields[rating] > 5) {
+        return res.status(404).send(`Invalid ${rating} value`);
+      }
+    }
+
+    const queryText = `
     INSERT INTO ratings (
       courseId,
       professor_name,
@@ -230,20 +231,22 @@ app.post("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
       suggestions_review
     ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
   `;
-  try {
-    await pool.query(queryText, queryValues);
+    try {
+      await pool.query(queryText, queryValues);
 
-    // Update course table
-    await updateRatings(courseId);
-    await updateRatingCount(courseId);
+      // Update course table
+      await updateRatings(courseId);
+      await updateRatingCount(courseId);
 
-    res.status(200).send({ message: "Course ratings updated successfully" });
-  } catch (err) {
-    res
-      .status(500)
-      .send({ error: "Failed to update course ratings", message: err.message });
+      res.status(200).send({ message: "Course ratings updated successfully" });
+    } catch (err) {
+      res.status(500).send({
+        error: "Failed to update course ratings",
+        message: err.message,
+      });
+    }
   }
-});
+);
 
 app.get("/api/update/:courseId", async (req, res) => {
   const { courseId } = req.params;
@@ -258,7 +261,7 @@ app.get("/api/update/:courseId", async (req, res) => {
   }
 });
 
-app.post("/api/contact", async (req, res) => {
+app.post("/api/contact", postLimiter, async (req, res) => {
   const { first_name, last_name, email, message } = req.body;
 
   const queryValues = [first_name, last_name, email, message];

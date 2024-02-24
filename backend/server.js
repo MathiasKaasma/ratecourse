@@ -78,8 +78,6 @@ app.get("/api/courses", async (req, res) => {
   params.push(`${limit}`, `${page * limit - limit}`);
 
   // Query the courses
-  console.log(query);
-  console.log(params);
   try {
     const result = await pool.query(query, params);
     res.json(result.rows);
@@ -90,16 +88,9 @@ app.get("/api/courses", async (req, res) => {
   }
 });
 
-async function getCourseId(schoolAcronym, courseCode) {
-  const courseResult = await pool.query(
-    `SELECT id FROM courses WHERE code = $1 AND school_name_acronym = $2`,
-    [courseCode, schoolAcronym]
-  );
-  return courseResult.rows.length > 0 ? courseResult.rows[0].id : null;
-}
-
 app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
-  const { schoolAcronym, courseCode } = req.params;
+  const schoolAcronym = req.params.schoolAcronym.toLowerCase();
+  const courseCode = req.params.courseCode.toLowerCase();
   const courseId = await getCourseId(schoolAcronym, courseCode);
 
   if (!courseId) {
@@ -118,6 +109,14 @@ app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
       .send({ error: "Internal Server Error", message: err.message });
   }
 });
+
+async function getCourseId(schoolAcronym, courseCode) {
+  const courseResult = await pool.query(
+    `SELECT id FROM courses WHERE LOWER(code) = $1 AND LOWER(school_name_acronym) = $2`,
+    [courseCode, schoolAcronym]
+  );
+  return courseResult.rows.length > 0 ? courseResult.rows[0].id : null;
+}
 
 async function updateRatingCount(courseId) {
   // Get current ratings count

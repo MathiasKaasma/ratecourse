@@ -89,8 +89,7 @@ app.get("/api/courses", async (req, res) => {
 });
 
 app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
-  const schoolAcronym = req.params.schoolAcronym.toLowerCase();
-  const courseCode = req.params.courseCode.toLowerCase();
+  const { schoolAcronym, courseCode } = req.params;
   const courseId = await getCourseId(schoolAcronym, courseCode);
 
   if (!courseId) {
@@ -111,9 +110,14 @@ app.get("/api/ratings/:schoolAcronym/:courseCode", async (req, res) => {
 });
 
 async function getCourseId(schoolAcronym, courseCode) {
+  const lowerCaseSchoolAcronym = schoolAcronym.toLowerCase();
+  const lowerCaseCourseCode = courseCode.toLowerCase();
+  console.log(schoolAcronym);
+  console.log(courseCode);
+
   const courseResult = await pool.query(
     `SELECT id FROM courses WHERE LOWER(code) = $1 AND LOWER(school_name_acronym) = $2`,
-    [courseCode, schoolAcronym]
+    [lowerCaseCourseCode, lowerCaseSchoolAcronym]
   );
   return courseResult.rows.length > 0 ? courseResult.rows[0].id : null;
 }

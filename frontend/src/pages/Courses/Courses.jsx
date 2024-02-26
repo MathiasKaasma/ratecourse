@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { debounce } from "lodash";
 import DesktopCourseTable from "./components/DesktopCourseTable";
 import MobileCourseTable from "./components/MobileCourseTable";
 import styles from "./Courses.module.css";
@@ -17,38 +18,7 @@ function Courses() {
 
   const [courseNameSearch, setCourseNameSearch] = useState("");
   const [courseCodeSearch, setCourseCodeSearch] = useState("");
-
   const [hasMoreCourses, setHasMoreCourses] = useState(true);
-
-  async function fetchCourses({ page, limit }) {
-    try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/courses?` +
-          new URLSearchParams({
-            schoolAcronym: schoolName,
-            page,
-            limit,
-            courseNameSearch: courseNameSearch,
-            courseCodeSearch: courseCodeSearch,
-          })
-      );
-      if (!response.ok) throw new Error("Data could not be fetched");
-      const data = await response.json();
-      if (page == 1) {
-        setAllCourses(data);
-      } else {
-        setAllCourses([...allCourses, ...data]);
-      }
-      setHasMoreCourses(data.length === limit);
-    } catch (error) {
-      console.error("Fetching error: ", error);
-      setHasMoreCourses(false);
-    }
-  }
-
-  useEffect(() => {
-    fetchCourses({ page: 1, limit: 24 });
-  }, []);
 
   useEffect(() => {
     const handleResize = () => {
@@ -61,6 +31,56 @@ function Courses() {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  useEffect(() => {
+    fetchCourses({ page: 1, limit: 24 });
+  }, []);
+
+  useEffect(() => {
+    const debouncedFetchCourses = debounce(fetchCourses, 300);
+    debouncedFetchCourses({ page: 1, limit: 24 });
+    // Cleanup debounce with lodash .cancel()
+    return () => {
+      debouncedFetchCourses.cancel();
+    };
+  }, [courseNameSearch, courseCodeSearch]);
+
+  async function fetchCourses({ page, limit }) {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/courses?` +
+          new URLSearchParams({
+            schoolAcronym: schoolName,
+            page,
+            limit,
+            courseNameSearch,
+            courseCodeSearch,
+          })
+      );
+      if (!response.ok) throw new Error("Data could not be fetched");
+      const data = await response.json();
+      // If query to page 1, reset displayed courses
+      if (page === 1) {
+        setAllCourses(data);
+        // Disable hasMoreCourses until allCourses finishes reset
+        setHasMoreCourses(false);
+      } else {
+        // Append to displayed courses
+        setAllCourses((prevCourses) => [...prevCourses, ...data]);
+      }
+      setHasMoreCourses(data.length === limit);
+    } catch (error) {
+      console.error("Fetching error: ", error);
+      setHasMoreCourses(false);
+    }
+  }
+
+  // Reenable hasMoreCourses when allCourses finishes reset
+  useEffect(() => {
+    if (allCourses.length > 0) {
+      setHasMoreCourses(true);
+    }
+  }, [allCourses]);
 
   return (
     <div className={styles["courses-container"]}>

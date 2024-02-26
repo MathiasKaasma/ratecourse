@@ -35,9 +35,9 @@ function MobileSchoolCourseTable({
             )
           }
         >
-          {courses.map((course) => (
+          {courses.map((course, index) => (
             <Link
-              key={course.id}
+              key={index}
               to={`/${schoolName}/${course.code}`}
               state={{ courseName: course.name }}
               className={styles["course-item"]}

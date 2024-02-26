@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Link } from "react-router-dom";
 import styles from "./Home.module.css";
 import taltechLogo from "../../assets/taltech.png";
@@ -25,18 +26,29 @@ function Home() {
 
   return (
     <main className={styles["main-content"]}>
+      <HelmetProvider>
+        <Helmet>
+          <title>Hinda Kursust</title>
+          <meta
+            name="description"
+            content="Hinda Kursust pakub tudengitele võimaluse tutvuda erinevate ülikoolide kursuste hinnangutega ja kursustele ise hinnangud jätta.
+          "
+          />
+          <meta
+            property="og:image"
+            content={`${window.location.origin}/Logo-blue.png`}
+          />
+        </Helmet>
+      </HelmetProvider>
       <div className={styles["main-header"]}>
         <h1 className={styles.title}>Hinda Kursust</h1>
         <div className={styles["home-drop-shadow"]}></div>
         <p className={styles.subtitle}>
-          {/* loe teiste hinnanguid
-          <br /> või kirjuta enda oma */}
-          tudengite hinnangud
-          <br /> ülikoolide kursustele
+          kursuste hinnangud
+          <br /> tudengilt tudengile
         </p>
       </div>
       <div className={styles["school-choice"]}>
-        {/* <h2 className={styles["small-title"]}>,</h2> */}
         <div className={styles["school-cards"]}>
           {schools.map((school) => (
             <Link key={school.id} to={`/${school.name_acronym}`}>

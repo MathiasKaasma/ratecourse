@@ -40,6 +40,7 @@
 
 .course-version-data div {
   margin-right: 1rem;
+  margin-top: 1px;
 }
 
 .study-period select {
@@ -57,7 +58,7 @@
 textarea {
   width: 98%;
   padding: 4px 4px 50px 4px;
-  margin: 0 1px;
+  margin: 0px 1px;
   margin-bottom: 2px;
   box-shadow: 0px 2px 2px 0px var(--accent-color);
   border: 1px solid rgba(0, 0, 0, 0.1);
@@ -79,9 +80,9 @@ textarea {
 }
 
 .course-version-data .form-text-rating textarea {
-  height: 22px;
+  height: 24px;
   border-radius: 6px;
-  padding: 2px 4px 2px 6px;
+  padding: 3px 4px 2px 6px;
 }
 
 /* Star ratings */

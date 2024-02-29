@@ -152,6 +152,17 @@ textarea {
   border: 0;
 }
 
+.red-exclamation {
+  color: red;
+  font-size: 1.2rem;
+  font-weight: 500;
+  margin-left: 3px;
+}
+
+.text-rating-info {
+  display: flex;
+}
+
 @media screen and (max-width: 1500px) {
   .form-container {
     width: 100%;

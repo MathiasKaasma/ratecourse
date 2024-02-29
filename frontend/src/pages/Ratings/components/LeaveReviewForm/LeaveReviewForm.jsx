@@ -149,7 +149,11 @@ function LeaveReview({ schoolName, courseCode }) {
       {/* Misc data (prof name, year, semester) */}
       <div className={styles["form-right"]}>
         <div className={styles["course-version"]}>
-          <h4>Õppeaine versioon</h4>
+          <div className={styles["text-rating-info"]}>
+            <h4>Õppeaine versioon</h4>
+            <span className={styles["red-exclamation"]}>*</span>
+          </div>
+
           <div className={styles["course-version-data"]}>
             <div className={styles["study-period"]}>
               <select
@@ -184,20 +188,22 @@ function LeaveReview({ schoolName, courseCode }) {
                 required: "Õppejõu nimi on nõutav",
               }}
               errors={errors}
+              labelStar={false}
             />
           </div>
         </div>
         {/* Text reviews */}
         <div>
           <TextRating
-            label="Üldine kommentaar*"
+            label="Üldine kommentaar"
             name="overall_review"
-            placeholder="Mis on Sinu mõtted selle õppeaine osas?*"
+            placeholder="Mis on Sinu mõtted selle õppeaine osas? *"
             register={register}
             validation={{
               required: "Üldine kommentaar on nõutav",
             }}
             errors={errors}
+            labelStar={true}
           />
           <TextRating
             label="Aine sisu"
@@ -205,6 +211,7 @@ function LeaveReview({ schoolName, courseCode }) {
             placeholder="Kas anti kodutöid? Kas kohalkäimine oli kohustuslik? Räägi mis tahad!"
             register={register}
             errors={errors}
+            labelStar={false}
           />
           <TextRating
             label="Kommentaarid õppejõu osas"
@@ -212,6 +219,7 @@ function LeaveReview({ schoolName, courseCode }) {
             placeholder="Kas õppejõud oli abivalmis ja toetav?"
             register={register}
             errors={errors}
+            labelStar={false}
           />
           <TextRating
             label="Soovitused"
@@ -219,6 +227,7 @@ function LeaveReview({ schoolName, courseCode }) {
             placeholder="Mis soovitusi sa tulevastele aine läbijatele annaks?"
             register={register}
             errors={errors}
+            labelStar={false}
           />
         </div>
         <div>

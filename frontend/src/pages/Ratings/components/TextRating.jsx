@@ -7,11 +7,15 @@ function TextRating({
   validation,
   label,
   errors,
+  labelStar,
 }) {
   return (
     <>
       <div className={styles["form-text-rating"]}>
-        <h4>{label}</h4>
+        <div className={styles["text-rating-info"]}>
+          <h4>{label}</h4>
+          {labelStar && <span className={styles["red-exclamation"]}>*</span>}
+        </div>
         <textarea
           {...register(name, {
             ...validation,

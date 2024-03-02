@@ -172,6 +172,7 @@
 
 .review {
   margin-bottom: 15px;
+  word-wrap: break-word;
 }
 
 .leave-review-title {

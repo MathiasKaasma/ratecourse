@@ -24,7 +24,6 @@ function CourseRatingsTable({ rating }) {
           </div>
         </div>
       </div>
-      {/* <div className={styles["rating-divider-top"]}></div> */}
       <div className={styles["rating-sideways"]}>
         <div className={styles["rating-left"]}>
           <div className="course-overall">
@@ -83,31 +82,25 @@ function CourseRatingsTable({ rating }) {
             <div className={styles["rating-divider"]}></div>
           </div>
           <div className={styles["text-reviews"]}>
-            <div className={`${styles["review"]} ${styles["overall-review"]}`}>
+            <div className={`${styles["review"]}`}>
               <h4>Üldised kommentaarid</h4>
               <p>{rating.overall_review}</p>
             </div>
             {rating.content_review && (
-              <div
-                className={`${styles["review"]} ${styles["content-review"]}`}
-              >
+              <div className={`${styles["review"]}`}>
                 <h4>Kursuse sisu osas</h4>
                 <p>{rating.content_review}</p>
               </div>
             )}
             {rating.professor_review && (
-              <div
-                className={`${styles["review"]} ${styles["professor-review"]}`}
-              >
+              <div className={`${styles["review"]}`}>
                 <h4>Õppejõu kohta</h4>
                 <p>{rating.professor_review}</p>
               </div>
             )}
 
             {rating.suggestions_review && (
-              <div
-                className={`${styles["review"]} ${styles["suggestions-review"]}`}
-              >
+              <div className={`${styles["review"]}`}>
                 <h4>Soovitused</h4>
                 <p>{rating.suggestions_review}</p>
               </div>

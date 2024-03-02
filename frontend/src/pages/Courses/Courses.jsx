@@ -59,14 +59,19 @@ function Courses() {
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();
-      // No courses found
-      if (data.length == 0) {
+      // No courses found, no courses currently displayed
+      if ((data.length == 0) & (page === 1)) {
+        setAllCourses(data);
         setHasMoreCourses(false);
-        // If query to page 1, reset displayed courses
+        // No courses found, but courses already displayed
+      } else if (data.length == 0) {
+        setHasMoreCourses(false);
+        // If user queries to page 1, reset displayed courses
       } else if (page === 1) {
         setAllCourses(data);
         // Disable hasMoreCourses until allCourses finishes reset
         setHasMoreCourses(false);
+        // If successful query, append new courses
       } else {
         // Append to displayed courses
         setAllCourses((prevCourses) => [...prevCourses, ...data]);

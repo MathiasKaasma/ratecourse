@@ -59,8 +59,11 @@ function Courses() {
       );
       if (!response.ok) throw new Error("Data could not be fetched");
       const data = await response.json();
-      // If query to page 1, reset displayed courses
-      if (page === 1) {
+      // No courses found
+      if (data.length == 0) {
+        setHasMoreCourses(false);
+        // If query to page 1, reset displayed courses
+      } else if (page === 1) {
         setAllCourses(data);
         // Disable hasMoreCourses until allCourses finishes reset
         setHasMoreCourses(false);
@@ -68,7 +71,6 @@ function Courses() {
         // Append to displayed courses
         setAllCourses((prevCourses) => [...prevCourses, ...data]);
       }
-      setHasMoreCourses(data.length === limit);
     } catch (error) {
       console.error("Fetching error: ", error);
       setHasMoreCourses(false);
@@ -77,7 +79,8 @@ function Courses() {
 
   // Reenable hasMoreCourses when allCourses finishes reset
   useEffect(() => {
-    if (allCourses.length > 0) {
+    if (allCourses.length == 24) {
+      console.log(" we move ");
       setHasMoreCourses(true);
     }
   }, [allCourses]);

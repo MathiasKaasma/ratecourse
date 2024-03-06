@@ -85,7 +85,6 @@ function Courses() {
   // Reenable hasMoreCourses when allCourses finishes reset
   useEffect(() => {
     if (allCourses.length == 24) {
-      console.log(" we move ");
       setHasMoreCourses(true);
     }
   }, [allCourses]);
